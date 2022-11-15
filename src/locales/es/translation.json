@@ -1,5 +1,5 @@
 {
-  "Connect": "Conectar",
-  "Disconnect": "Desconectar",
-  "Account": "Cuenta"
+  "connect": "Conectar",
+  "disconnect": "Desconectar",
+  "account": "Cuenta"
 }

@@ -1,33 +1,20 @@
 import React from "react";
 import ReactDOM from 'react-dom/client';
 import { RouterProvider } from 'react-router-dom';
-import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
+import { ApolloProvider } from '@apollo/client';
 import reportWebVitals from './reportWebVitals';
-import { Mainnet, DAppProvider, Config, Goerli } from '@usedapp/core';
-import { getDefaultProvider } from "ethers";
+import { DAppProvider } from '@usedapp/core';
 import { router } from "./navigation/routes";
+import { dappConfig } from "./config/usedapp";
+import { apolloClient } from "./config/apolloClient";
 import './i18n';
 import "./index.css";
-
-
-const config: Config = {
-  readOnlyChainId: Mainnet.chainId,
-  readOnlyUrls: {
-    [Mainnet.chainId]: getDefaultProvider('mainnet'),
-    [Goerli.chainId]: getDefaultProvider('goerli'),
-  },
-}
-
-const client = new ApolloClient({
-  cache: new InMemoryCache(),
-  uri: "https://hub.snapshot.org/graphql"
-});
 
 const root = ReactDOM.createRoot(document.getElementById("root")!);
 root.render(
   <React.StrictMode>
-    <DAppProvider config={config}>
-      <ApolloProvider client={client}>
+    <DAppProvider config={dappConfig}>
+      <ApolloProvider client={apolloClient}>
         <RouterProvider router={router} />
       </ApolloProvider>
     </DAppProvider>

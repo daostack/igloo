@@ -1,0 +1,8 @@
+
+.language-selector {
+  &__language {
+    &--selected {
+      text-decoration: underline;
+    }
+  }
+}

@@ -1,5 +1,6 @@
 {
-  "Connect": "Connect",
-  "Disconnect": "Disconnect",
-  "Account": "Account"
+  "error-message": "Something went wrong :/",
+  "connect": "Connect",
+  "disconnect": "Disconnect",
+  "account": "Account"
 }

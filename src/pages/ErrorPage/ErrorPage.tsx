@@ -1,8 +1,10 @@
+import { t } from "i18next";
+import "./index.scss";
 
 export default function ErrorPage() {
   return (
-    <div>
-      Error!
+    <div className="error-page">
+      {t("error-message")}
     </div>
   )
 }
