@@ -1,11 +1,14 @@
 import React from "react";
-import ReactDOM from "react-dom/client";
-import reportWebVitals from "./reportWebVitals";
+import ReactDOM from 'react-dom/client';
+import { RouterProvider } from 'react-router-dom';
+import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
+import reportWebVitals from './reportWebVitals';
 import { Mainnet, DAppProvider, Config, Goerli } from '@usedapp/core';
 import { getDefaultProvider } from "ethers";
+import { router } from "./navigation/routes";
 import './i18n';
 import "./index.css";
-import App from "./App";
+
 
 const config: Config = {
   readOnlyChainId: Mainnet.chainId,
@@ -15,11 +18,18 @@ const config: Config = {
   },
 }
 
+const client = new ApolloClient({
+  cache: new InMemoryCache(),
+  uri: "https://hub.snapshot.org/graphql"
+});
+
 const root = ReactDOM.createRoot(document.getElementById("root")!);
 root.render(
   <React.StrictMode>
     <DAppProvider config={config}>
-      <App />
+      <ApolloProvider client={client}>
+        <RouterProvider router={router} />
+      </ApolloProvider>
     </DAppProvider>
   </React.StrictMode>
 );
