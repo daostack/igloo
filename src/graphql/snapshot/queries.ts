@@ -11,3 +11,19 @@ query Spaces {
   }
 }
 `;
+
+export const GET_SPACE = gql`
+  query Space($spaceId: String!) {
+    space(id: $spaceId) {
+      name
+    }
+  }
+`
+
+export const GET_SPACE_PROPOSALS = gql`
+query SpaceProposals($spaceId: String!) {
+  proposals(where: { space_in: [$spaceId] }) {
+    title
+  }
+}
+`

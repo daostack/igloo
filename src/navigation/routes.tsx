@@ -1,6 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom';
 import App from '../App';
 import ErrorPage from '../pages/ErrorPage/ErrorPage';
+import Space from '../pages/SpacesPage/components/Space/Space';
 import SpacesPage from '../pages/SpacesPage/SpacesPage';
 
 export const router = createBrowserRouter([
@@ -11,7 +12,11 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "spaces",
-        element: <SpacesPage />
+        element: <SpacesPage />,
+      },
+      {
+        path: "spaces/:spaceId",
+        element: <Space />
       }
     ]
   }
