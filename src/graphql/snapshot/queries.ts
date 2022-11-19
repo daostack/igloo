@@ -32,7 +32,11 @@ query SpaceProposals($spaceId: String!) {
 export const GET_PROPOSAL = gql`
   query Proposal($proposalId: String!) {
     proposal(id: $proposalId) {
+      id
       title
+      space {
+        id
+      }
     }
   }
 `

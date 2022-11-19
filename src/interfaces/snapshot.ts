@@ -6,6 +6,9 @@ export interface Space {
 export interface Proposal {
   id: string
   title: string
+  space: {
+    id: string
+  }
 }
 
 export interface VotingPower {
