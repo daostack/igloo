@@ -1,3 +1,4 @@
+@import "../../styles/colors.scss";
 
 .header {
   display: flex;
@@ -5,5 +6,5 @@
   justify-content: space-between;
   align-items: center;
   top: 0;
-  background-color: white;
+  background-color: $white;
 }

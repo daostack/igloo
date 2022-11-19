@@ -23,7 +23,26 @@ export const GET_SPACE = gql`
 export const GET_SPACE_PROPOSALS = gql`
 query SpaceProposals($spaceId: String!) {
   proposals(where: { space_in: [$spaceId] }) {
+    id
     title
   }
 }
+`
+
+export const GET_PROPOSAL = gql`
+  query Proposal($proposalId: String!) {
+    proposal(id: $proposalId) {
+      title
+    }
+  }
+`
+
+export const GET_VOTING_POWER = gql`
+  query VotingPower($voter: String!, $space: String!, $proposal: String!) {
+    vp(voter: $voter, space: $space, proposal: $proposal) {
+      vp
+      vp_by_strategy
+      vp_state
+    }
+  }
 `

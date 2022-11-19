@@ -8,7 +8,7 @@ import { router } from "./navigation/routes";
 import { dappConfig } from "./config/usedapp";
 import { apolloClient } from "./config/apolloClient";
 import './i18n';
-import "./index.css";
+import "./index.scss";
 
 const root = ReactDOM.createRoot(document.getElementById("root")!);
 root.render(

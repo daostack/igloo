@@ -4,5 +4,10 @@ export interface Space {
 }
 
 export interface Proposal {
+  id: string
   title: string
+}
+
+export interface VotingPower {
+  vp: number
 }

@@ -1,8 +1,10 @@
 import { createBrowserRouter } from 'react-router-dom';
 import App from '../App';
 import ErrorPage from '../pages/ErrorPage/ErrorPage';
+import Proposal from '../pages/SpacesPage/components/Proposal/Proposal';
 import Space from '../pages/SpacesPage/components/Space/Space';
 import SpacesPage from '../pages/SpacesPage/SpacesPage';
+import { Routes } from './constants';
 
 export const router = createBrowserRouter([
   {
@@ -11,12 +13,16 @@ export const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       {
-        path: "spaces",
+        path: Routes.spaces,
         element: <SpacesPage />,
       },
       {
         path: "spaces/:spaceId",
-        element: <Space />
+        element: <Space />,
+      },
+      {
+        path: "spaces/:spaceId/proposal/:proposalId",
+        element: <Proposal />
       }
     ]
   }
