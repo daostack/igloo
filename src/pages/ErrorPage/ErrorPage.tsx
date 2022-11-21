@@ -4,7 +4,7 @@ import "./index.scss";
 export default function ErrorPage() {
   return (
     <div className="error-page">
-      {t("error-message")}
+      {t("ErrorPage.message")}
     </div>
   )
 }

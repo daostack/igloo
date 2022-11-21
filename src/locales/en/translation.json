@@ -1,6 +1,10 @@
 {
-  "error-message": "Something went wrong :/",
-  "connect": "Connect",
-  "disconnect": "Disconnect",
-  "account": "Account"
+  "ErrorPage": {
+    "message": "Something went wrong :/"
+  },
+  "WalletButton": {
+    "connect": "Connect",
+    "disconnect": "Disconnect",
+    "account": "Account"
+  }
 }

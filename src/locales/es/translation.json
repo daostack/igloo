@@ -1,5 +1,7 @@
 {
-  "connect": "Conectar",
-  "disconnect": "Desconectar",
-  "account": "Cuenta"
+  "WalletButton": {
+    "connect": "Conectar",
+    "disconnect": "Desconectar",
+    "account": "Cuenta"
+  }
 }

@@ -34,6 +34,7 @@ export const GET_PROPOSAL = gql`
     proposal(id: $proposalId) {
       id
       title
+      choices
       space {
         id
       }
@@ -47,6 +48,14 @@ export const GET_VOTING_POWER = gql`
       vp
       vp_by_strategy
       vp_state
+    }
+  }
+`
+
+export const GET_VOTES = gql`
+  query Votes($space: String!, $voter: String!, $proposal: String!) {
+    votes(where: {space: $space, voter: $voter, proposal: $proposal}) {
+      choice
     }
   }
 `

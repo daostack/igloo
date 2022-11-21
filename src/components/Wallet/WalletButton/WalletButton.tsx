@@ -7,9 +7,9 @@ export default function WalletButton() {
 
   return (
     <div className="wallet-button">
-      {!account && <button onClick={() => activateBrowserWallet()}>{t('connect')}</button>}
-      {account && <button onClick={() => deactivate()}>{t('disconnect')}</button>}
-      {account && <span>{t('account')} {shortenIfAddress(account)}</span>}
+      {!account && <button onClick={() => activateBrowserWallet()}>{t('WalletButton.connect')}</button>}
+      {account && <button onClick={() => deactivate()}>{t('WalletButton.disconnect')}</button>}
+      {account && <span>{t('WalletButton.account')} {shortenIfAddress(account)}</span>}
     </div>
   )
 }

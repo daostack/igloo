@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { GET_SPACE, GET_SPACE_PROPOSALS } from "../../../../graphql/snapshot/queries";
 import { Proposal } from "../../../../interfaces/snapshot";
 import { Routes } from "../../../../navigation/constants";
+import "./index.scss";
 
 export default function Space() {
   const { spaceId } = useParams();
@@ -13,16 +14,16 @@ export default function Space() {
   if (spaceError || proposalsError) return <span>Failed loading space</span>
   if (spaceLoading || proposalsLoading) return <span>Loading...</span>
 
-  const proposals = proposalsData.proposals.map((proposal: Proposal, index) => {
-    return <Link to={`${Routes.spaces}/${spaceId}/proposal/${proposal.id}`} key={index}>{proposal.title}</Link>
-  })
+  const proposals = proposalsData.proposals.map((proposal: Proposal, index) =>
+    <Link to={`${Routes.spaces}/${spaceId}/proposal/${proposal.id}`} key={index}>{proposal.title}</Link>
+  )
 
   return (
-    <div>
+    <div className="space">
       <h2>{spaceData.space.name}</h2>
-      <ul>
+      <div className="space__proposals-container">
         {proposals.length === 0 ? <span>No Proposals</span> : proposals}
-      </ul>
+      </div>
     </div>
   )
 }

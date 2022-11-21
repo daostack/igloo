@@ -6,6 +6,7 @@ export interface Space {
 export interface Proposal {
   id: string
   title: string
+  choices: string[];
   space: {
     id: string
   }
@@ -13,4 +14,8 @@ export interface Proposal {
 
 export interface VotingPower {
   vp: number
+}
+
+export interface Votes {
+  choice: number
 }

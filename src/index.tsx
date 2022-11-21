@@ -7,6 +7,7 @@ import { DAppProvider } from '@usedapp/core';
 import { router } from "./navigation/routes";
 import { dappConfig } from "./config/usedapp";
 import { apolloClient } from "./config/apolloClient";
+import { ToastProvider } from "./components/Toast";
 import './i18n';
 import "./index.scss";
 
@@ -15,7 +16,9 @@ root.render(
   <React.StrictMode>
     <DAppProvider config={dappConfig}>
       <ApolloProvider client={apolloClient}>
-        <RouterProvider router={router} />
+        <ToastProvider>
+          <RouterProvider router={router} />
+        </ToastProvider>
       </ApolloProvider>
     </DAppProvider>
   </React.StrictMode>

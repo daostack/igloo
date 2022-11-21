@@ -1,0 +1,8 @@
+@import "../../../styles/colors.scss";
+
+.toast {
+  display: flex;
+  justify-content: space-between;
+  background-color: $white;
+  padding: 5px;
+}

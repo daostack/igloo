@@ -10,9 +10,9 @@ export default function SpacesPage() {
   if (error) return <span>Failed loading spaces</span>;
   if (loading) return <span>Loading...</span>
 
-  const spaces = !loading && data.spaces.map((space: Space, index) => {
-    return <Link to={`${Routes.spaces}/${space.id}`} key={index}>{space.name}</Link>
-  })
+  const spaces = !loading && data.spaces.map((space: Space, index) =>
+    <Link to={`${Routes.spaces}/${space.id}`} key={index}>{space.name}</Link>
+  )
 
   return (
     <div className="spaces-page">
