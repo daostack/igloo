@@ -4,17 +4,21 @@ import Toast from "./Toast/Toast";
 import { ToastContext } from "./ToastContext";
 import "./index.scss";
 
-// TODO: better types
-export const ToastProvider = (props) => {
-  const [toasts, setToasts] = useState<any>([]);
+interface IToast {
+  id: number
+  content: React.ReactNode
+}
 
-  const open = (content) =>
+export const ToastProvider = (props) => {
+  const [toasts, setToasts] = useState<IToast[]>([]);
+
+  const open = (content: React.ReactNode) =>
     setToasts((currentToasts) => [
       ...currentToasts,
       { id: Date.now(), content },
     ]);
 
-  const close = (id) =>
+  const close = (id: number) =>
     setToasts((currentToasts) =>
       currentToasts.filter((toast) => toast.id !== id)
     );
@@ -22,12 +26,12 @@ export const ToastProvider = (props) => {
   const contextValue = useMemo(() => ({ open }), []);
 
   return (
-    <ToastContext.Provider value={contextValue as any}>
+    <ToastContext.Provider value={contextValue}>
       {props.children}
 
       {createPortal(
         <div className="toasts-container">
-          {toasts.map((toast) => (
+          {toasts.map(toast => (
             <Toast key={toast.id} close={() => close(toast.id)}>
               {toast.content}
             </Toast>

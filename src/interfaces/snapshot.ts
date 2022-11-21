@@ -3,13 +3,16 @@ export interface Space {
   name: string
 }
 
+type ProposalState = "active" | "closed";
+
 export interface Proposal {
   id: string
   title: string
-  choices: string[];
+  choices: string[]
   space: {
     id: string
   }
+  state: ProposalState
 }
 
 export interface VotingPower {

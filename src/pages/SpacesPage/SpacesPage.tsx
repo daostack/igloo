@@ -2,7 +2,6 @@ import { useQuery } from "@apollo/client";
 import { Link } from "react-router-dom";
 import { GET_SPACES } from "../../graphql/snapshot/queries";
 import { Space } from "../../interfaces/snapshot";
-import { Routes } from "../../navigation/constants";
 import "./index.scss";
 
 export default function SpacesPage() {
@@ -11,7 +10,7 @@ export default function SpacesPage() {
   if (loading) return <span>Loading...</span>
 
   const spaces = !loading && data.spaces.map((space: Space, index) =>
-    <Link to={`${Routes.spaces}/${space.id}`} key={index}>{space.name}</Link>
+    <Link to={space.id} key={index}>{space.name}</Link>
   )
 
   return (

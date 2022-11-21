@@ -32,6 +32,7 @@ export default function Proposal() {
     if (!account || !proposal || !choice) return;
     try {
       // const receipt = 
+      // TODO: handle the rest of the params
       await snapshotClient.vote(library as Web3Provider, account, {
         space: proposal.space.id,
         proposal: proposal.id,
@@ -54,12 +55,18 @@ export default function Proposal() {
     <div>
       <h2>{proposal?.title}</h2>
       <h4>Voting Power: {vpError ? "Could not load voting power" : vpLoading ? "Loading..." : vp ? vp.vp : "Connect your wallet to reveal your voting power"}</h4>
-      {!votesLoading && !votesError && <select value={choice} onChange={e => setChoice(e.target.value)}>
-        {proposal?.choices.map((choice, index) =>
-          <option key={index} value={index + 1}>{choice}</option>
-        )}
-      </select>}
-      <button disabled={!account || !choice} onClick={vote}>Vote</button>
+      {proposal?.state === "active" ? (
+        <>
+          {!votesLoading && !votesError && (
+            <select value={choice} onChange={e => setChoice(e.target.value)}>
+              {proposal?.choices.map((choice, index) =>
+                <option key={index} value={index + 1}>{choice}</option>
+              )}
+            </select>
+          )}
+          <button disabled={!account || !choice || vp?.vp === 0} onClick={vote}>Vote</button>
+        </>
+      ) : "This proposal has ended"}
     </div>
   )
 }

@@ -38,6 +38,7 @@ export const GET_PROPOSAL = gql`
       space {
         id
       }
+      state
     }
   }
 `
