@@ -2,6 +2,7 @@
 import { useCallback } from "react";
 import { useParams } from "react-router";
 import DatePicker from 'react-datepicker';
+import { useNavigate } from "react-router-dom";
 import { useForm, useFieldArray, Controller } from "react-hook-form";
 import { useEthers } from "@usedapp/core";
 import { Web3Provider } from "@ethersproject/providers";
@@ -16,9 +17,10 @@ import "./index.scss";
 export default function CreateProposal() {
   const { account, library } = useEthers();
   const { spaceId } = useParams();
-  const { control, register, handleSubmit, getValues, formState: { errors, isValid } } = useForm({ mode: "onBlur" });
+  const { control, register, handleSubmit, watch, formState: { errors, isValid } } = useForm({ mode: "onBlur" });
   const { fields, append, remove } = useFieldArray({ control, name: "choices", rules: { minLength: 1 } });
   const toast = useToast();
+  const navigate = useNavigate();
 
   // : SubmitHandler<CreateProposalForm>
   const create = useCallback(async (data) => {
@@ -44,14 +46,14 @@ export default function CreateProposal() {
         discussion: data.discussion
       })
 
-      console.log(receipt);
-      toast.open("Proposal Created Successfully!");
-      // TODO: redricet to proposal page: receipt.id 
+      toast.open("Your proposal created successfully!");
+      // TODO: better type for receipt and better use of routes
+      navigate(`/spaces/${spaceId}/proposal/${(receipt as any).id}`);
     } catch (error: any) { // TODO: better error type
       console.log(error)
       toast.open(error?.error_description || error?.code || error?.message);
     }
-  }, [account, library, spaceId, toast])
+  }, [account, library, spaceId, toast, navigate])
 
   return (
     <div className="create-proposal">
@@ -93,26 +95,25 @@ export default function CreateProposal() {
               placeholderText='Start Date'
               onChange={(date) => field.onChange(date)}
               selected={field.value}
-              dateFormat={DateFormat.Long}
+              dateFormat={DateFormat.DatePickerLong}
             />
           )}
         />
 
-        <button onClick={() => console.log(getValues("start"))}>get start value</button>
         <Controller
           control={control}
           name='end'
           rules={{ required: true }}
           render={({ field }) => (
             <DatePicker
-              disabled={!getValues("start")}
-              startDate={new Date(getValues("start"))}
-              minDate={new Date(getValues("start"))}
+              disabled={!watch("start")}
+              startDate={new Date(watch("start"))}
+              minDate={new Date(watch("start"))}
               showTimeSelect
               placeholderText='End Date'
-              onChange={(date) => field.onChange(date)}
+              onChange={date => field.onChange(date)}
               selected={field.value}
-              dateFormat={DateFormat.Long}
+              dateFormat={DateFormat.DatePickerLong}
             />
           )}
         />

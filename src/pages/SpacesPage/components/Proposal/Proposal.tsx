@@ -41,7 +41,7 @@ export default function Proposal() {
         reason: '[ADD REASON TEXT HERE]',
         app: getAppName()
       });
-      toast.open("Voting Success!");
+      toast.open("Voting success!");
       refetchVotes();
     } catch (error: any) { // TODO: better error type
       toast.open(error?.error_description || error?.code || error?.message);
@@ -51,8 +51,6 @@ export default function Proposal() {
   if (proposalError) return <span>Failed loading proposal</span>
   if (proposalLoading || !proposal) return <span>Loading...</span>
 
-  console.log(proposal?.start)
-
   return (
     <div>
       <h2>{proposal?.title}</h2>
@@ -61,14 +59,14 @@ export default function Proposal() {
         <>
           {!votesLoading && !votesError && (
             <select value={choice} onChange={e => setChoice(e.target.value)}>
-              {proposal?.choices.map((choice, index) =>
+              {proposal.choices.map((choice, index) =>
                 <option key={index} value={index + 1}>{choice}</option>
               )}
             </select>
           )}
           <button disabled={!account || !choice || vp?.vp === 0} onClick={vote}>Vote</button>
         </>
-      ) : proposal?.state === "closed" ? "This proposal has ended" : `This proposal starts at ${fromUnixTime(proposal?.start)} `}
+      ) : proposal?.state === "closed" ? "This proposal has ended" : `Voting begins ${fromUnixTime(proposal.start)} `}
     </div>
   )
 }
