@@ -3,7 +3,8 @@ export interface Space {
   name: string
 }
 
-type ProposalState = "active" | "closed";
+// TODO: check all proposal states possible
+type ProposalState = "active" | "closed" | "pending";
 
 export interface Proposal {
   id: string
@@ -13,6 +14,8 @@ export interface Proposal {
     id: string
   }
   state: ProposalState
+  start: number
+  end: number
 }
 
 export interface VotingPower {

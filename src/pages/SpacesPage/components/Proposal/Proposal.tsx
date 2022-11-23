@@ -7,6 +7,7 @@ import { snapshotClient } from "../../../../config/snapshot";
 import { GET_PROPOSAL, GET_VOTES, GET_VOTING_POWER } from "../../../../graphql/snapshot/queries";
 import { Proposal as IProposal, Votes, VotingPower } from "../../../../interfaces/snapshot";
 import { useToast } from "../../../../components/Toast";
+import { fromUnixTime, getAppName } from "../../../../utils/utils";
 
 export default function Proposal() {
   const toast = useToast();
@@ -31,7 +32,6 @@ export default function Proposal() {
   const vote = useCallback(async () => {
     if (!account || !proposal || !choice) return;
     try {
-      // const receipt = 
       // TODO: handle the rest of the params
       await snapshotClient.vote(library as Web3Provider, account, {
         space: proposal.space.id,
@@ -39,9 +39,9 @@ export default function Proposal() {
         type: 'single-choice',
         choice: Number(choice),
         reason: '[ADD REASON TEXT HERE]',
-        app: '[APP?]'
+        app: getAppName()
       });
-      toast.open("Voting Success!")
+      toast.open("Voting Success!");
       refetchVotes();
     } catch (error: any) { // TODO: better error type
       toast.open(error?.error_description || error?.code || error?.message);
@@ -49,7 +49,9 @@ export default function Proposal() {
   }, [account, proposal, choice, library, refetchVotes, toast])
 
   if (proposalError) return <span>Failed loading proposal</span>
-  if (proposalLoading) return <span>Loading...</span>
+  if (proposalLoading || !proposal) return <span>Loading...</span>
+
+  console.log(proposal?.start)
 
   return (
     <div>
@@ -66,7 +68,7 @@ export default function Proposal() {
           )}
           <button disabled={!account || !choice || vp?.vp === 0} onClick={vote}>Vote</button>
         </>
-      ) : "This proposal has ended"}
+      ) : proposal?.state === "closed" ? "This proposal has ended" : `This proposal starts at ${fromUnixTime(proposal?.start)} `}
     </div>
   )
 }

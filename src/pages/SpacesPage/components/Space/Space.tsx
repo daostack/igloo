@@ -20,6 +20,7 @@ export default function Space() {
   return (
     <div className="space">
       <h2>{spaceData.space.name}</h2>
+      <Link to="create-proposal">Create Proposal</Link>
       <div className="space__proposals-container">
         {proposals.length === 0 ? <span>No Proposals</span> : proposals}
       </div>
