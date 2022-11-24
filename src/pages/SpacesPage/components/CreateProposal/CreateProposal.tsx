@@ -12,10 +12,13 @@ import { useToast } from "../../../../components/Toast";
 import { BASIC_PROPOSAL_CHOICES, CHOICE_MAX_LENGTH, DESCRIPTION_MAX_LENGTH, PROPOSAL_TYPE } from "./constants";
 import { getAppName, toUnixTime } from "../../../../utils/utils";
 import { DateFormat } from "../../../../constants";
+import { useToggle } from "../../../../hooks/useToggle";
 import "react-datepicker/dist/react-datepicker.css";
 import "./index.scss";
+import Loading from "../../../../components/Loading/Loading";
 
 export default function CreateProposal() {
+  const [loading, setLoading] = useToggle();
   const { account, library } = useEthers();
   const { spaceId } = useParams();
   const { control, register, handleSubmit, watch, formState: { errors, isValid } } = useForm({ mode: "onBlur" });
@@ -28,6 +31,7 @@ export default function CreateProposal() {
     if (!account || !spaceId) return;
 
     try {
+      setLoading(true);
       let choices = data.choices.filter(choice => choice.value !== "").map(choice => choice.value);
       if (data.type === PROPOSAL_TYPE["5"]) {
         choices = BASIC_PROPOSAL_CHOICES;
@@ -46,14 +50,15 @@ export default function CreateProposal() {
         body: data.body,
         discussion: data.discussion
       })
-
+      setLoading(false);
       toast.open(t("CreateProposal.create-success"));
       // TODO: better type for receipt and better use of routes
       navigate(`/spaces/${spaceId}/proposal/${(receipt as any).id}`);
     } catch (error: any) { // TODO: better error type
+      setLoading(false);
       toast.open(error?.error_description || error?.code || error?.message);
     }
-  }, [account, library, spaceId, toast, navigate])
+  }, [account, library, spaceId, toast, navigate, setLoading])
 
   return (
     <div className="create-proposal">
@@ -130,6 +135,7 @@ export default function CreateProposal() {
 
         <input disabled={!account || !isValid} type="submit" value={t("CreateProposal.publish")!} />
       </form>
+      {loading && <Loading text={t("Shared.follow-wallet")!} />}
     </div>
   )
 }

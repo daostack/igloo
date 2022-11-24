@@ -5,7 +5,8 @@
     "remove": "Remove",
     "add": "Add",
     "data-load-failed": "Failed loading data",
-    "connect-your-wallet": "Connect your wallet"
+    "connect-your-wallet": "Connect your wallet",
+    "follow-wallet": "Follow your wallet instructions..."
   },
   "ErrorPage": {
     "message": "Something went wrong :/"

@@ -9,8 +9,11 @@ import { GET_PROPOSAL, GET_VOTES, GET_VOTING_POWER } from "../../../../graphql/s
 import { Proposal as IProposal, Votes, VotingPower } from "../../../../interfaces/snapshot";
 import { useToast } from "../../../../components/Toast";
 import { fromUnixTime, getAppName } from "../../../../utils/utils";
+import { useToggle } from "../../../../hooks/useToggle";
+import Loading from "../../../../components/Loading/Loading";
 
 export default function Proposal() {
+  const [loading, setLoading] = useToggle();
   const toast = useToast();
   const { spaceId, proposalId } = useParams();
   const { account, library } = useEthers();
@@ -33,6 +36,7 @@ export default function Proposal() {
   const vote = useCallback(async () => {
     if (!account || !proposal || !choice) return;
     try {
+      setLoading(true);
       // TODO: handle the rest of the params
       await snapshotClient.vote(library as Web3Provider, account, {
         space: proposal.space.id,
@@ -42,12 +46,14 @@ export default function Proposal() {
         reason: '[ADD REASON TEXT HERE]',
         app: getAppName()
       });
+      setLoading(false);
       toast.open(t("Proposal.vote-success"));
       refetchVotes();
     } catch (error: any) { // TODO: better error type
+      setLoading(false);
       toast.open(error?.error_description || error?.code || error?.message);
     }
-  }, [account, proposal, choice, library, refetchVotes, toast])
+  }, [account, proposal, choice, library, refetchVotes, toast, setLoading])
 
   if (proposalError) return <span>{t("Shared.data-load-failed")}</span>
   if (proposalLoading || !proposal) return <span>{t("Shared.loading")}</span>
@@ -68,6 +74,7 @@ export default function Proposal() {
           <button disabled={!account || !choice || vp?.vp === 0} onClick={vote}>{t("Proposal.vote")}</button>
         </>
       ) : proposal.state === "closed" ? t("Proposal.vote-ended") : `${t("Proposal.vote-begins")} ${fromUnixTime(proposal.start)} `}
+      {loading && <Loading text={t("Shared.follow-wallet")!} />}
     </div>
   )
 }
