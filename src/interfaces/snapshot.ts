@@ -1,10 +1,13 @@
+/**
+ * NOTE: IN THE MEANTIME THERE ARE NO EXPOSABLE INTERFACES FROM SNAPSHOT.JS SO WE DEFINE THEM HERE.
+ */
+
 export interface Space {
   id: string
   name: string
 }
 
-// TODO: check all possible proposal states
-type ProposalState = "active" | "closed" | "pending";
+export type ProposalState = "active" | "closed" | "pending";
 
 export interface Proposal {
   id: string
@@ -24,4 +27,19 @@ export interface VotingPower {
 
 export interface Votes {
   choice: number
+}
+
+export interface SnapshotError {
+  error?: string
+  error_description?: string
+  code?: string
+}
+
+export interface SnapshotReceipt {
+  id: string
+  ipfs: string
+  relayer: {
+    address: string
+    receipt: string
+  }
 }

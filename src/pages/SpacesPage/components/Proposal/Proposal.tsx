@@ -6,7 +6,7 @@ import { useParams } from "react-router";
 import { Web3Provider } from "@ethersproject/providers";
 import { snapshotClient } from "../../../../config/snapshot";
 import { GET_PROPOSAL, GET_VOTES, GET_VOTING_POWER } from "../../../../graphql/snapshot/queries";
-import { Proposal as IProposal, Votes, VotingPower } from "../../../../interfaces/snapshot";
+import { Proposal as IProposal, SnapshotError, Votes, VotingPower } from "../../../../interfaces/snapshot";
 import { useToast } from "../../../../components/Toast";
 import { fromUnixTime, getAppName } from "../../../../utils/utils";
 import { useToggle } from "../../../../hooks/useToggle";
@@ -49,9 +49,9 @@ export default function Proposal() {
       setLoading(false);
       toast.open(t("Proposal.vote-success"));
       refetchVotes();
-    } catch (error: any) { // TODO: better error type
+    } catch (error) {
       setLoading(false);
-      toast.open(error?.error_description || error?.code || error?.message);
+      toast.open((error as SnapshotError)?.code || (error as SnapshotError)?.error_description);
     }
   }, [account, proposal, choice, library, refetchVotes, toast, setLoading])
 

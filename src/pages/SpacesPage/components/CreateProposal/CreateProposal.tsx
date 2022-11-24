@@ -13,9 +13,10 @@ import { BASIC_PROPOSAL_CHOICES, CHOICE_MAX_LENGTH, DESCRIPTION_MAX_LENGTH, PROP
 import { getAppName, toUnixTime } from "../../../../utils/utils";
 import { DateFormat } from "../../../../constants";
 import { useToggle } from "../../../../hooks/useToggle";
+import Loading from "../../../../components/Loading/Loading";
+import { SnapshotError, SnapshotReceipt } from "../../../../interfaces/snapshot";
 import "react-datepicker/dist/react-datepicker.css";
 import "./index.scss";
-import Loading from "../../../../components/Loading/Loading";
 
 export default function CreateProposal() {
   const [loading, setLoading] = useToggle();
@@ -49,14 +50,14 @@ export default function CreateProposal() {
         end: toUnixTime(data.end),
         body: data.body,
         discussion: data.discussion
-      })
+      }) as SnapshotReceipt;
+
       setLoading(false);
       toast.open(t("CreateProposal.create-success"));
-      // TODO: better type for receipt and better use of routes
-      navigate(`/spaces/${spaceId}/proposal/${(receipt as any).id}`);
-    } catch (error: any) { // TODO: better error type
+      navigate(`/spaces/${spaceId}/proposal/${receipt.id}`);
+    } catch (error) {
       setLoading(false);
-      toast.open(error?.error_description || error?.code || error?.message);
+      toast.open((error as SnapshotError)?.code || (error as SnapshotError)?.error_description);
     }
   }, [account, library, spaceId, toast, navigate, setLoading])
 
