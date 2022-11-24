@@ -1,4 +1,12 @@
 {
+  "Shared": {
+    "loading": "Loading...",
+    "required": "Required",
+    "remove": "Remove",
+    "add": "Add",
+    "data-load-failed": "Failed loading data",
+    "connect-your-wallet": "Connect your wallet"
+  },
   "ErrorPage": {
     "message": "Something went wrong :/"
   },
@@ -6,5 +14,27 @@
     "connect": "Connect",
     "disconnect": "Disconnect",
     "account": "Account"
+  },
+  "Space": {
+    "create-proposal": "Create Proposal",
+    "no-proposals": "No Proposals"
+  },
+  "CreateProposal": {
+    "create-success": "Your proposal was created successfully!",
+    "create-proposal": "Create Proposal",
+    "description-placeholder": "Description (optional)",
+    "discussion-placeholder": "Discussion (optional)",
+    "basic-proposal-choices": "Choices for basic proposal are 'For', 'Against' and 'Abstain'",
+    "start-date-placeholder": "Start Date",
+    "end-date-placeholder": "End Date",
+    "publish": "Publish",
+    "choice-placeholder": "Choice"
+  },
+  "Proposal": {
+    "vote-success": "Voting success!",
+    "vote": "Vote",
+    "vote-ended": "Voting ended",
+    "vote-begins": "Voting begins",
+    "your-vp": "Your voting power:"
   }
 }

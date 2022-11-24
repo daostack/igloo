@@ -4,11 +4,12 @@ import { useParams } from "react-router";
 import DatePicker from 'react-datepicker';
 import { useNavigate } from "react-router-dom";
 import { useForm, useFieldArray, Controller } from "react-hook-form";
+import { t } from "i18next";
 import { useEthers } from "@usedapp/core";
 import { Web3Provider } from "@ethersproject/providers";
 import { snapshotClient } from "../../../../config/snapshot";
 import { useToast } from "../../../../components/Toast";
-import { CHOICE_MAX_LENGTH, DESCRIPTION_MAX_LENGTH, PROPOSAL_TYPE } from "./constants";
+import { BASIC_PROPOSAL_CHOICES, CHOICE_MAX_LENGTH, DESCRIPTION_MAX_LENGTH, PROPOSAL_TYPE } from "./constants";
 import { getAppName, toUnixTime } from "../../../../utils/utils";
 import { DateFormat } from "../../../../constants";
 import "react-datepicker/dist/react-datepicker.css";
@@ -26,11 +27,11 @@ export default function CreateProposal() {
   const create = useCallback(async (data) => {
     if (!account || !spaceId) return;
 
-    console.log(data)
-
     try {
-      const choices = data.choices.filter(choice => choice.value !== "").map(choice => choice.value);
-      choices.unshift(data["first-choice"]);
+      let choices = data.choices.filter(choice => choice.value !== "").map(choice => choice.value);
+      if (data.type === PROPOSAL_TYPE["5"]) {
+        choices = BASIC_PROPOSAL_CHOICES;
+      } else choices.unshift(data["first-choice"]);
 
       const receipt = await snapshotClient.proposal(library as Web3Provider, account, {
         title: data.title,
@@ -46,43 +47,52 @@ export default function CreateProposal() {
         discussion: data.discussion
       })
 
-      toast.open("Your proposal created successfully!");
+      toast.open(t("CreateProposal.create-success"));
       // TODO: better type for receipt and better use of routes
       navigate(`/spaces/${spaceId}/proposal/${(receipt as any).id}`);
     } catch (error: any) { // TODO: better error type
-      console.log(error)
       toast.open(error?.error_description || error?.code || error?.message);
     }
   }, [account, library, spaceId, toast, navigate])
 
   return (
     <div className="create-proposal">
-      <h2>Create Proposal</h2>
+      <h2>{t("CreateProposal.create-proposal")}</h2>
       <form onSubmit={handleSubmit(create)} className="create-proposal__form">
         <input {...register("title", { required: true })} placeholder="Title" />
-        {errors.title && <span>this field is required</span>}
-        <textarea {...register("body", { maxLength: DESCRIPTION_MAX_LENGTH })} placeholder="Description (optional)" />
-        <input {...register("discussion")} placeholder="Discussion (optional)" />
-        {/* TODO: handle Basic voting case */}
+        {errors.title && <span>{t("Shared.required")}</span>}
+        <textarea {...register("body", { maxLength: DESCRIPTION_MAX_LENGTH })} placeholder={t("CreateProposal.description-placeholder")!} />
+
+        {/* TODO: validate URL */}
+        <input {...register("discussion")} placeholder={t("CreateProposal.discussion-placeholder")!} />
+
         <select {...register("type")}>
           {PROPOSAL_TYPE.map((type, index) => <option key={index} value={type}>{type}</option>)}
         </select>
-        <input {...register("first-choice", { required: true, maxLength: CHOICE_MAX_LENGTH })} placeholder="Choice 1" />
-        {errors["first-choice"] && <span>at least one choice</span>}
-        {fields.map((field, index) => (
-          <div key={index}>
-            <input
-              key={field.id}
-              {...register(`choices.${index}.value`, { maxLength: CHOICE_MAX_LENGTH })}
-            />
-            <button type="button" onClick={() => remove(index)}>Remove</button>
-          </div>
-        ))}
-        <button
-          type="button"
-          onClick={() => append("")}>
-          Add
-        </button>
+
+        {
+          watch("type") === PROPOSAL_TYPE[5] ? t("CreateProposal.basic-proposal-choices") : (
+            <>
+              <input {...register("first-choice", { required: true, maxLength: CHOICE_MAX_LENGTH })} placeholder={`${t("CreateProposal.choice-placeholder")} #1`} />
+              {errors["first-choice"] && <span>{t("Shared.required")}</span>}
+              {fields.map((field, index) => (
+                <div key={index}>
+                  <input
+                    key={field.id}
+                    {...register(`choices.${index}.value`, { maxLength: CHOICE_MAX_LENGTH })}
+                    placeholder={`${t("CreateProposal.choice-placeholder")} #${index + 2}`}
+                  />
+                  <button type="button" onClick={() => remove(index)}>{t("Shared.remove")}</button>
+                </div>
+              ))}
+              <button
+                type="button"
+                onClick={() => append("")}>
+                {t("Shared.add")}
+              </button>
+            </>
+          )
+        }
 
         <Controller
           control={control}
@@ -92,8 +102,8 @@ export default function CreateProposal() {
             <DatePicker
               minDate={new Date()}
               showTimeSelect
-              placeholderText='Start Date'
-              onChange={(date) => field.onChange(date)}
+              placeholderText={t("CreateProposal.start-date-placeholder")}
+              onChange={date => field.onChange(date)}
               selected={field.value}
               dateFormat={DateFormat.DatePickerLong}
             />
@@ -110,7 +120,7 @@ export default function CreateProposal() {
               startDate={new Date(watch("start"))}
               minDate={new Date(watch("start"))}
               showTimeSelect
-              placeholderText='End Date'
+              placeholderText={t("CreateProposal.end-date-placeholder")}
               onChange={date => field.onChange(date)}
               selected={field.value}
               dateFormat={DateFormat.DatePickerLong}
@@ -118,7 +128,7 @@ export default function CreateProposal() {
           )}
         />
 
-        <input disabled={!account || !isValid} type="submit" />
+        <input disabled={!account || !isValid} type="submit" value={t("CreateProposal.publish")!} />
       </form>
     </div>
   )

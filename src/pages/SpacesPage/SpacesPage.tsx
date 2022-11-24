@@ -1,13 +1,14 @@
 import { useQuery } from "@apollo/client";
 import { Link } from "react-router-dom";
+import { t } from "i18next";
 import { GET_SPACES } from "../../graphql/snapshot/queries";
 import { Space } from "../../interfaces/snapshot";
 import "./index.scss";
 
 export default function SpacesPage() {
   const { loading, error, data } = useQuery(GET_SPACES);
-  if (error) return <span>Failed loading spaces</span>;
-  if (loading) return <span>Loading...</span>
+  if (error) return <span>{t("Shared.data-load-failed")}</span>;
+  if (loading) return <span>{t("Shared.loading")}</span>
 
   const spaces = !loading && data.spaces.map((space: Space, index) =>
     <Link to={space.id} key={index}>{space.name}</Link>

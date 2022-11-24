@@ -1,6 +1,7 @@
+import { useCallback, useEffect, useState } from "react";
 import { useQuery } from "@apollo/client";
 import { useEthers } from "@usedapp/core";
-import { useCallback, useEffect, useState } from "react";
+import { t } from "i18next";
 import { useParams } from "react-router";
 import { Web3Provider } from "@ethersproject/providers";
 import { snapshotClient } from "../../../../config/snapshot";
@@ -41,21 +42,21 @@ export default function Proposal() {
         reason: '[ADD REASON TEXT HERE]',
         app: getAppName()
       });
-      toast.open("Voting success!");
+      toast.open(t("Proposal.vote-success"));
       refetchVotes();
     } catch (error: any) { // TODO: better error type
       toast.open(error?.error_description || error?.code || error?.message);
     }
   }, [account, proposal, choice, library, refetchVotes, toast])
 
-  if (proposalError) return <span>Failed loading proposal</span>
-  if (proposalLoading || !proposal) return <span>Loading...</span>
+  if (proposalError) return <span>{t("Shared.data-load-failed")}</span>
+  if (proposalLoading || !proposal) return <span>{t("Shared.loading")}</span>
 
   return (
     <div>
-      <h2>{proposal?.title}</h2>
-      <h4>Voting Power: {vpError ? "Could not load voting power" : vpLoading ? "Loading..." : vp ? vp.vp : "Connect your wallet to reveal your voting power"}</h4>
-      {proposal?.state === "active" ? (
+      <h2>{proposal.title}</h2>
+      <h5>{t("Proposal.your-vp")} {vpError ? t("Shared.data-load-failed") : vpLoading ? t("Shared.loading") : vp ? vp.vp : t("Shared.connect-your-wallet")}</h5>
+      {proposal.state === "active" ? (
         <>
           {!votesLoading && !votesError && (
             <select value={choice} onChange={e => setChoice(e.target.value)}>
@@ -64,9 +65,9 @@ export default function Proposal() {
               )}
             </select>
           )}
-          <button disabled={!account || !choice || vp?.vp === 0} onClick={vote}>Vote</button>
+          <button disabled={!account || !choice || vp?.vp === 0} onClick={vote}>{t("Proposal.vote")}</button>
         </>
-      ) : proposal?.state === "closed" ? "This proposal has ended" : `Voting begins ${fromUnixTime(proposal.start)} `}
+      ) : proposal.state === "closed" ? t("Proposal.vote-ended") : `${t("Proposal.vote-begins")} ${fromUnixTime(proposal.start)} `}
     </div>
   )
 }

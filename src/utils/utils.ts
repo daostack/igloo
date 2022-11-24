@@ -1,4 +1,4 @@
-import moment from "moment"; //, { Moment } 
+import moment from "moment";
 import { DateFormat } from "../constants";
 
 export const getAppName = (): string => {

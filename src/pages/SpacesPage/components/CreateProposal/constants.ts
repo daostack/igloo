@@ -18,3 +18,4 @@ export interface CreateProposalForm {
 
 export const DESCRIPTION_MAX_LENGTH = 14400;
 export const CHOICE_MAX_LENGTH = 32;
+export const BASIC_PROPOSAL_CHOICES = ["For", "Against", "Abstain"];
