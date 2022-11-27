@@ -16,6 +16,9 @@
     "disconnect": "Disconnect",
     "account": "Account"
   },
+  "WalletBalance": {
+    "eth-balance": "ETH Balance:"
+  },
   "Space": {
     "create-proposal": "Create Proposal",
     "no-proposals": "No Proposals"
