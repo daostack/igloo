@@ -29,7 +29,7 @@ export const ToastProvider = (props) => {
     <ToastContext.Provider value={contextValue}>
       {props.children}
 
-      {createPortal(
+      {toasts.length > 0 && createPortal(
         <div className="toasts-container">
           {toasts.map(toast => (
             <Toast key={toast.id} close={() => close(toast.id)}>

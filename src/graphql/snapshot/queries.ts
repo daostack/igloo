@@ -1,10 +1,11 @@
 import { gql } from "@apollo/client";
 
 export const GET_SPACES = gql`
-query Spaces {
+query Spaces($first: Int!, $skip: Int!, $orderBy: String!) {
   spaces(
-    orderBy: "created",
-    orderDirection: desc
+    first: $first,
+    skip: $skip,
+    orderBy: $orderBy
   ) {
     id
     name
