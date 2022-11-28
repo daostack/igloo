@@ -1,6 +1,7 @@
 import { ApolloClient, InMemoryCache } from "@apollo/client";
 import { SNAPSHOT_URI_TESTNET } from "./constants";
 
+// TODO: better merge function with offset.
 export const apolloClient = new ApolloClient({
   cache: new InMemoryCache({
     typePolicies: {
