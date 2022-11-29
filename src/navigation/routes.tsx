@@ -1,4 +1,4 @@
-import { createBrowserRouter, Navigate } from 'react-router-dom';
+import { createBrowserRouter } from 'react-router-dom';
 import App from '../App';
 import AdminPage from '../pages/AdminPage/AdminPage';
 import CreateHat from '../pages/AdminPage/components/CreateHat/CreateHat';
@@ -18,8 +18,7 @@ export const router = createBrowserRouter([
     children: [
       {
         path: Routes.admin,
-        // TODO: replace "true" by condition to admin page
-        element: true ? <AdminPage /> : <Navigate to="/" />,
+        element: <AdminPage />,
         children: [
           {
             path: Routes.createHat,
