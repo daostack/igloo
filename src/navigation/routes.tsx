@@ -1,5 +1,8 @@
-import { createBrowserRouter } from 'react-router-dom';
+import { createBrowserRouter, Navigate } from 'react-router-dom';
 import App from '../App';
+import AdminPage from '../pages/AdminPage/AdminPage';
+import CreateHat from '../pages/AdminPage/components/CreateHat/CreateHat';
+import MintHat from '../pages/AdminPage/components/MintHat/MintHat';
 import ErrorPage from '../pages/ErrorPage/ErrorPage';
 import CreateProposal from '../pages/SpacesPage/components/CreateProposal/CreateProposal';
 import Proposal from '../pages/SpacesPage/components/Proposal/Proposal';
@@ -13,6 +16,21 @@ export const router = createBrowserRouter([
     element: <App />,
     errorElement: <ErrorPage />,
     children: [
+      {
+        path: Routes.admin,
+        // TODO: replace "true" by condition to admin page
+        element: true ? <AdminPage /> : <Navigate to="/" />,
+        children: [
+          {
+            path: Routes.createHat,
+            element: <CreateHat />
+          },
+          {
+            path: Routes.mintHat,
+            element: <MintHat />
+          }
+        ]
+      },
       {
         path: Routes.spaces,
         element: <SpacesPage />,

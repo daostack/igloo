@@ -27,7 +27,7 @@ export default function CreateProposal() {
   const toast = useToast();
   const navigate = useNavigate();
 
-  // : SubmitHandler<CreateProposalForm>
+  // TODO: add useCallback type (see CreateHat)
   const create = useCallback(async (data) => {
     if (!account || !spaceId) return;
 
