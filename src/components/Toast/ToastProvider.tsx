@@ -20,8 +20,10 @@ export const ToastProvider = (props) => {
         return { id: notification.id, content: "Transaction Failed" };
       case "transactionSucceed":
         return { id: notification.id, content: "Transaction Succeeded" };
+      case "walletConnected":
+        return { id: notification.id, content: "Wallet Connected" };
       default:
-        return { id: "", content: "unknown" }
+        return { id: "unknown", content: "Unknown Notification" };
     }
   })
 
@@ -51,7 +53,7 @@ export const ToastProvider = (props) => {
           ))}
 
           {useDappNotifications.map(toast => (
-            <Toast key={toasts.length + toast.id} close={() => close(toast.id)}>
+            <Toast key={toast.id}>
               {toast.content}
             </Toast>
           ))}

@@ -10,7 +10,7 @@ export default function TransactionInfo() {
   return (
     <div className="transaction-info">
       <h6>{currentTransaction?.transactionName}</h6>
-      {/* TODO: check why getExplorerTransactionLink is deprecated */}
+      {/* TODO: check why getExplorerTransactionLink is deprecated - getExplorerTransactionLink is deprecated, can call with Chain directly */}
       {transactionHash && <button onClick={() => window.open(getExplorerTransactionLink(transactionHash, chainId as ChainId))}>{t("TransactionInfo.show-in-explorer")}</button>}
     </div>
   )

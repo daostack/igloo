@@ -48,8 +48,8 @@ export function useIsWearerOfHat(account: string | undefined, hatId: string): bo
   return value?.[0];
 }
 
-export function useViewHat(hatId: string): Hat | undefined {
-  const { value, error } = useCall({
+export function useViewHat(hatId: string | undefined): Hat | undefined {
+  const { value, error } = useCall(hatId && {
     contract: new Contract(HATS_PROTOCOL, HatsProtocolAbi),
     method: 'viewHat',
     args: [hatId]
@@ -58,7 +58,7 @@ export function useViewHat(hatId: string): Hat | undefined {
     console.error(error.message);
     return undefined;
   }
-  return value?.[0];
+  return value;
 }
 
 export function useCreateHat() {

@@ -12,10 +12,15 @@ export interface Hat {
 }
 
 export interface HatCreate {
-  admin: number
+  admin: string
   details: string
   maxSupply: BigNumberish
   eligibility: string
   toggle: string
   imageURI: string
+}
+
+export interface HatMint {
+  hatId: number
+  wearer: string
 }

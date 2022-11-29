@@ -6,6 +6,7 @@ import { useCallback } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import Loading from "../../../../components/Loading/Loading";
 import { useToast } from "../../../../components/Toast";
+import { HATS_IDS } from "../../../../data/hatsProtocolData";
 import { useCreateHat } from "../../../../hooks/hatsProtocol/contractHooks";
 import { useToggle } from "../../../../hooks/useToggle";
 import { HatCreate } from "../../../../interfaces/hatsProtocol";
@@ -16,10 +17,13 @@ export default function CreateHat() {
   const [loading, setLoading] = useToggle();
   const { account } = useEthers();
   const toast = useToast();
-  const { register, handleSubmit, formState: { errors, isValid } } = useForm<HatCreate>({ mode: "onBlur" });
+  const { register, handleSubmit, formState: { errors, isValid }, reset } = useForm<HatCreate>({
+    mode: "onBlur",
+    defaultValues: { admin: HATS_IDS.TopHat }
+  });
   const { send: createHat, state: createHatState } = useCreateHat();
 
-  const create: SubmitHandler<HatCreate> = useCallback(async (data) => {
+  const create: SubmitHandler<HatCreate> = useCallback(async data => {
     try {
       setLoading(true);
       const receipt = await createHat(
@@ -31,13 +35,15 @@ export default function CreateHat() {
         data.imageURI
       );
       console.log(receipt);
+      /** TODO: call reset only on success - either according the receipt or the tx status */
+      reset();
       setLoading(false);
     } catch (error) {
       console.error(error);
       setLoading(false);
       toast.open(error instanceof Error ? error.message : t("Shared.general-error"));
     }
-  }, [createHat, toast, setLoading])
+  }, [createHat, toast, setLoading, reset])
 
   return (
     <div className="create-hat">
@@ -45,7 +51,7 @@ export default function CreateHat() {
 
       {/* TODO: validate fields */}
       <form onSubmit={handleSubmit(create)} className="create-hat__form">
-        <input {...register("admin", { required: true })} placeholder="_admin" />
+        <input disabled {...register("admin", { required: true })} placeholder="_admin" />
         <input {...register("details", { required: true })} placeholder="_details" />
         <input type="number" {...register("maxSupply", { required: true, valueAsNumber: true })} placeholder="_maxSupply" />
         <input {...register("eligibility", { required: true, validate: isAddress })} placeholder="_eligibility" />
