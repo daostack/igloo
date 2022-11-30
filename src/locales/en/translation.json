@@ -20,6 +20,10 @@
   "WalletBalance": {
     "eth-balance": "ETH Balance:"
   },
+  "WalletInfo": {
+    "no-hats": "No Hats Yet",
+    "your-hats": "Your Hats:"
+  },
   "TransactionInfo": {
     "show-in-explorer": "Show in Explorer"
   },

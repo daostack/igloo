@@ -1,13 +1,13 @@
 import { useEthers } from "@usedapp/core";
 import { NavLink } from "react-router-dom";
-import { HATS_MAPPING } from "../../data/hatsProtocolData";
-import { useIsTopHat } from "../../hooks/hatsProtocol/contractHooks";
+import { HATS_IDS } from "../../data/hatsProtocolData";
+import { useIsWearerOfHat } from "../../hooks/hatsProtocol/contractHooks";
 import { Routes } from "../../navigation/constants";
 import "./index.scss";
 
 export default function NavLinks() {
   const { account } = useEthers();
-  const isTopHat = useIsTopHat(account, HATS_MAPPING.get(account ?? ""));
+  const isTopHat = useIsWearerOfHat(account, HATS_IDS.TopHat);
 
   return (
     <div className="nav-links">

@@ -27,3 +27,7 @@ export const formatNumber = (value: number | string | BigNumberish, precision: n
 export const getTxLoadingText = (transactionState: TransactionState) => {
   return transactionState === "PendingSignature" ? t("Shared.follow-wallet") : transactionState === "Mining" ? "Mining..." : "";
 }
+
+export const getAllTrueIndexes = (array: (boolean | undefined)[]): number[] => {
+  return array.reduce((out, bool, index) => bool ? out.concat(index as any) : out, []);
+}
