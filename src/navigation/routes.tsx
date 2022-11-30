@@ -10,6 +10,7 @@ import Space from '../pages/SpacesPage/components/Space/Space';
 import SpacesPage from '../pages/SpacesPage/SpacesPage';
 import { Routes } from './constants';
 
+// TODO: make space/proposal childs of spaces route
 export const router = createBrowserRouter([
   {
     path: "/",

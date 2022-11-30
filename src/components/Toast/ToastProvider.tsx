@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import { createPortal } from "react-dom";
 import { useNotifications } from "@usedapp/core";
+import { t } from "i18next";
 import Toast from "./Toast/Toast";
 import { ToastContext } from "./ToastContext";
 import "./index.scss";
@@ -15,15 +16,15 @@ export const ToastProvider = (props) => {
   const useDappNotifications = useNotifications().notifications.map((notification): IToast => {
     switch (notification.type) {
       case "transactionStarted":
-        return { id: notification.id, content: "Transaction Started" };
+        return { id: notification.id, content: t("ToastProvider.transaction-started") };
       case "transactionFailed":
-        return { id: notification.id, content: "Transaction Failed" };
+        return { id: notification.id, content: t("ToastProvider.transaction-failed") };
       case "transactionSucceed":
-        return { id: notification.id, content: "Transaction Succeeded" };
+        return { id: notification.id, content: t("ToastProvider.transaction-succeed") };
       case "walletConnected":
-        return { id: notification.id, content: "Wallet Connected" };
+        return { id: notification.id, content: t("ToastProvider.wallet-connected") };
       default:
-        return { id: "unknown", content: "Unknown Notification" };
+        return { id: "unknown", content: t("ToastProvider.unknown-notification") };
     }
   })
 

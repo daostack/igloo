@@ -1,5 +1,7 @@
+@import "../../styles/global.scss";
 
 .spaces-page {
+  @include content;
   &__spaces-container {
     display: flex;
     flex-direction: column;

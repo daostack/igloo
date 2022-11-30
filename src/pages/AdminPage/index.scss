@@ -1,5 +1,7 @@
+@import "../../styles/global.scss";
 
 .admin-page {
+  @include content;
   display: flex;
   flex-direction: column;
 }

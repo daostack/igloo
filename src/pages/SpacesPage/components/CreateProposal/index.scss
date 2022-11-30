@@ -1,5 +1,7 @@
+@import "../../../../styles/global.scss";
 
 .create-proposal {
+  @include content;
   &__form {
     display: flex;
     flex-direction: column;

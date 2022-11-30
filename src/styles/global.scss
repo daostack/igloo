@@ -1,0 +1,20 @@
+@import "./constants.scss";
+
+@mixin content {
+  margin: auto;
+
+  // mobile
+  @media only screen and (max-width: $mobile-limit) {
+    width: 100%;
+  }
+
+  // laptop
+  @media only screen and (min-width: $mobile-limit) and (max-width: $laptop-limit) {
+    max-width: $max-content-width;
+  }
+
+  // high-res
+  @media only screen and (min-width: $laptop-limit) {
+    max-width: $max-content-width;
+  }
+}

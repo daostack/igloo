@@ -23,6 +23,13 @@
   "TransactionInfo": {
     "show-in-explorer": "Show in Explorer"
   },
+  "ToastProvider": {
+    "transaction-started": "Transaction Started",
+    "transaction-failed": "Transaction Failed",
+    "transaction-succeed": "Transaction Succeeded",
+    "wallet-connected": "Wallet Connected",
+    "unknown-notification": "Unknown Notification"
+  },
   "Space": {
     "create-proposal": "Create Proposal",
     "no-proposals": "No Proposals"
