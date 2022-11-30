@@ -6,7 +6,7 @@ import { useCallback } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import Loading from "../../../../components/Loading/Loading";
 import { useToast } from "../../../../components/Toast";
-import { HATS_IDS } from "../../../../data/hatsProtocolData";
+import { TOP_HAT_ID } from "../../../../data/hatsProtocolData";
 import { useCreateHat } from "../../../../hooks/hatsProtocol/contractHooks";
 import { useToggle } from "../../../../hooks/useToggle";
 import { HatCreate } from "../../../../interfaces/hatsProtocol";
@@ -19,7 +19,7 @@ export default function CreateHat() {
   const toast = useToast();
   const { register, handleSubmit, formState: { errors, isValid }, reset } = useForm<HatCreate>({
     mode: "onBlur",
-    defaultValues: { admin: HATS_IDS.TopHat }
+    defaultValues: { admin: TOP_HAT_ID }
   });
   const { send: createHat, state: createHatState } = useCreateHat();
 

@@ -5,11 +5,11 @@ import { useEthers } from "@usedapp/core";
 import { isAddress } from "ethers/lib/utils"
 import { HatMint } from "../../../../interfaces/hatsProtocol";
 import { useToggle } from "../../../../hooks/useToggle";
-import { useMintHat } from "../../../../hooks/hatsProtocol/contractHooks";
+import { useMintHat, useViewHats } from "../../../../hooks/hatsProtocol/contractHooks";
 import { useToast } from "../../../../components/Toast";
 import { getTxLoadingText } from "../../../../utils/utils";
 import Loading from "../../../../components/Loading/Loading";
-import { HATS } from "../../../../data/hatsProtocolData";
+import { HATS_IDS } from "../../../../data/hatsProtocolData";
 import "./index.scss";
 
 export default function MintHat() {
@@ -18,6 +18,7 @@ export default function MintHat() {
   const toast = useToast();
   const { register, handleSubmit, formState: { errors, isValid }, reset } = useForm<HatMint>({ mode: "onBlur" });
   const { send: mintHat, state: mintHatState } = useMintHat();
+  const hats = useViewHats(HATS_IDS);
 
   const mint: SubmitHandler<HatMint> = useCallback(async data => {
     try {
@@ -37,6 +38,8 @@ export default function MintHat() {
     }
   }, [mintHat, toast, setLoading, reset])
 
+  if (!hats) return null;
+
   return (
     <div className="mint-hat">
       MINT HAT
@@ -44,7 +47,9 @@ export default function MintHat() {
       {/* TODO: validate fields */}
       <form onSubmit={handleSubmit(mint)} className="mint-hat__form">
         <select {...register("hatId", { required: true })}>
-          {HATS.map((hat, index) => <option key={index} value={hat.hatId}>{hat.type}</option>)}
+          {hats.map((hat, index) => (
+            <option key={index} value={HATS_IDS[index]}>{hat?.details} {`(${hat?.maxSupply})`}</option>
+          ))}
         </select>
 
         <input {...register("wearer", { required: true, validate: isAddress })} placeholder="_wearer" />
