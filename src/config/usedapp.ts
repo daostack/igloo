@@ -7,4 +7,5 @@ export const dappConfig: Config = {
     [Mainnet.chainId]: getDefaultProvider('mainnet'),
     [Goerli.chainId]: getDefaultProvider('goerli'),
   },
+  autoConnect: true
 }

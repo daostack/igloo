@@ -4,6 +4,7 @@ import { shortenIfAddress, useEthers, useLookupAddress } from "@usedapp/core";
 import WalletConnectProvider from '@walletconnect/web3-provider';
 import { useToast } from "../../Toast";
 import { t } from "i18next";
+import { ENDPOINTS } from "../../../config/env";
 
 export const Web3ModalButton = () => {
   const { account, activate, deactivate } = useEthers();
@@ -30,8 +31,7 @@ export const Web3ModalButton = () => {
       walletconnect: {
         package: WalletConnectProvider,
         options: {
-          bridge: 'https://bridge.walletconnect.org',
-          infuraId: '14a0951f47e646c1b241aa533e150219',
+          rpc: ENDPOINTS
         },
       },
     }
