@@ -38,6 +38,7 @@ export default function MintHat() {
     }
   }, [mintHat, toast, setLoading, reset])
 
+  // TODO: need to check why getting array of undefined
   if (!hats) return null;
 
   return (

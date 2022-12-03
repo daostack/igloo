@@ -12,10 +12,9 @@
   "ErrorPage": {
     "message": "Something went wrong :/"
   },
-  "WalletButton": {
+  "Web3ModalButton": {
     "connect": "Connect",
-    "disconnect": "Disconnect",
-    "account": "Account"
+    "disconnect": "Disconnect"
   },
   "WalletBalance": {
     "eth-balance": "ETH Balance:"

@@ -3,8 +3,8 @@ import { useEthers } from "@usedapp/core";
 import LanguageSelector from "../../components/LanguageSelector/LanguageSelector";
 import NavLinks from "../../components/NavLinks/NavLinks";
 import WalletBalance from "../../components/Wallet/WalletBalance/WalletBalance";
-import WalletButton from "../../components/Wallet/WalletButton/WalletButton";
 import WalletInfo from "../../components/Wallet/WalletInfo/WalletInfo";
+import { Web3ModalButton } from "../../components/Wallet/Web3ModalButton/Web3ModalButton";
 import { TOP_HAT_ID } from "../../data/hatsProtocolData";
 import { useIsWearerOfHat } from "../../hooks/hatsProtocol/contractHooks";
 import { useWindowSize } from "../../hooks/useWindowSize";
@@ -19,7 +19,7 @@ export default function Header() {
     <header className="header">
       <NavLinks />
       <LanguageSelector />
-      <WalletButton />
+      <Web3ModalButton />
       <WalletBalance />
       {isTopHat ? "Admin" : <WalletInfo />}
       {breakpoint === "mobile" && <span>MENU BUTTON</span>}

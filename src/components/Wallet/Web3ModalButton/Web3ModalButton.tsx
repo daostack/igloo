@@ -1,0 +1,60 @@
+import { useEffect, useState } from "react";
+import Web3Modal from 'web3modal';
+import { shortenIfAddress, useEthers, useLookupAddress } from "@usedapp/core";
+import WalletConnectProvider from '@walletconnect/web3-provider';
+import { useToast } from "../../Toast";
+import { t } from "i18next";
+
+export const Web3ModalButton = () => {
+  const { account, activate, deactivate } = useEthers();
+  const { ens } = useLookupAddress(account);
+  const toast = useToast();
+  const [showModal, setShowModal] = useState(false);
+  const { error } = useEthers();
+
+  useEffect(() => {
+    if (error) {
+      toast.open(error.message);
+    }
+  }, [error, toast])
+
+  const activateProvider = async () => {
+    const providerOptions = {
+      injected: {
+        display: {
+          name: 'Metamask',
+          description: 'Connect with the provider in your Browser',
+        },
+        package: null,
+      },
+      walletconnect: {
+        package: WalletConnectProvider,
+        options: {
+          bridge: 'https://bridge.walletconnect.org',
+          infuraId: '14a0951f47e646c1b241aa533e150219',
+        },
+      },
+    }
+
+    const web3Modal = new Web3Modal({
+      providerOptions,
+    })
+    try {
+      const provider = await web3Modal.connect()
+      await activate(provider)
+    } catch (error) {
+      toast.open(error instanceof Error ? error.message : t("Shared.general-error"));
+    }
+  }
+
+  return (
+    <div>
+      {account ? (
+        <>
+          <div onClick={() => setShowModal(!showModal)}>{ens ?? shortenIfAddress(account)}</div>
+          <button onClick={() => deactivate()}>{t("Web3ModalButton.disconnect")}</button>
+        </>
+      ) : <button onClick={activateProvider}>{t("Web3ModalButton.connect")}</button>}
+    </div>
+  )
+}
