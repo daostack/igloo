@@ -7,10 +7,9 @@ import { t } from "i18next";
 import { ENDPOINTS } from "../../../config/env";
 
 export const Web3ModalButton = () => {
-  const { account, activate, deactivate } = useEthers();
+  const { account, activate, deactivate, error } = useEthers();
   const { ens } = useLookupAddress(account);
   const toast = useToast();
-  const { error } = useEthers();
 
   useEffect(() => {
     if (error) {
