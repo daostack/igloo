@@ -11,6 +11,7 @@ export default function AdminPage() {
   const isTopHat = useIsWearerOfHat(account, TOP_HAT_ID);
   const protocolVersion = useName();
 
+  if (!account) return <Navigate to="/" />;
   if (isTopHat === undefined) return <Loading />;
   if (isTopHat === false) return <Navigate to="/" />;
 

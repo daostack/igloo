@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Web3Modal from 'web3modal';
 import { shortenIfAddress, useEthers, useLookupAddress } from "@usedapp/core";
 import WalletConnectProvider from '@walletconnect/web3-provider';
@@ -10,7 +10,6 @@ export const Web3ModalButton = () => {
   const { account, activate, deactivate } = useEthers();
   const { ens } = useLookupAddress(account);
   const toast = useToast();
-  const [showModal, setShowModal] = useState(false);
   const { error } = useEthers();
 
   useEffect(() => {
@@ -40,18 +39,18 @@ export const Web3ModalButton = () => {
       providerOptions,
     })
     try {
-      const provider = await web3Modal.connect()
-      await activate(provider)
+      const provider = await web3Modal.connect();
+      await activate(provider);
     } catch (error) {
       toast.open(error instanceof Error ? error.message : t("Shared.general-error"));
     }
   }
 
   return (
-    <div>
+    <div className="web3-modal-button">
       {account ? (
         <>
-          <div onClick={() => setShowModal(!showModal)}>{ens ?? shortenIfAddress(account)}</div>
+          <span>{ens ?? shortenIfAddress(account)}</span>
           <button onClick={() => deactivate()}>{t("Web3ModalButton.disconnect")}</button>
         </>
       ) : <button onClick={activateProvider}>{t("Web3ModalButton.connect")}</button>}
