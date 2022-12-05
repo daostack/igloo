@@ -10,7 +10,7 @@ import { Web3Provider } from "@ethersproject/providers";
 import { snapshotClient } from "../../../../config/snapshot";
 import { useToast } from "../../../../components/Toast";
 import { BASIC_PROPOSAL_CHOICES, CHOICE_MAX_LENGTH, DESCRIPTION_MAX_LENGTH, PROPOSAL_TYPE } from "./constants";
-import { getAppName, toUnixTime } from "../../../../utils/utils";
+import { getAppName, isValidURL, toUnixTime } from "../../../../utils/utils";
 import { DateFormat } from "../../../../constants";
 import { useToggle } from "../../../../hooks/useToggle";
 import Loading from "../../../../components/Loading/Loading";
@@ -69,8 +69,8 @@ export default function CreateProposal() {
         {errors.title && <span>{t("Shared.required")}</span>}
         <textarea {...register("body", { maxLength: DESCRIPTION_MAX_LENGTH })} placeholder={t("CreateProposal.description-placeholder")!} />
 
-        {/* TODO: validate URL */}
-        <input {...register("discussion")} placeholder={t("CreateProposal.discussion-placeholder")!} />
+        <input {...register("discussion", { validate: watch("discussion") && isValidURL })} placeholder={t("CreateProposal.discussion-placeholder")!} />
+        {errors.discussion && <span>{t("Shared.enter-valid-url")}</span>}
 
         <select {...register("type")}>
           {PROPOSAL_TYPE.map((type, index) => <option key={index} value={type}>{type}</option>)}

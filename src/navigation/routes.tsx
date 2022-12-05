@@ -10,7 +10,6 @@ import Space from '../pages/SpacesPage/components/Space/Space';
 import SpacesPage from '../pages/SpacesPage/SpacesPage';
 import { Routes } from './constants';
 
-// TODO: make space/proposal childs of spaces route
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -36,15 +35,15 @@ export const router = createBrowserRouter([
         element: <SpacesPage />,
       },
       {
-        path: "spaces/:spaceId",
+        path: Routes.space,
         element: <Space />,
       },
       {
-        path: "spaces/:spaceId/proposal/:proposalId",
+        path: Routes.proposal,
         element: <Proposal />
       },
       {
-        path: "spaces/:spaceId/create-proposal",
+        path: Routes.createProposal,
         element: <CreateProposal />
       }
     ]

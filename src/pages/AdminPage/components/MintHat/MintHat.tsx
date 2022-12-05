@@ -27,9 +27,7 @@ export default function MintHat() {
         data.hatId,
         data.wearer
       );
-      console.log(receipt);
-      /** TODO: call reset only on success - either according the receipt or the tx status */
-      reset();
+      if (receipt?.status === 1) reset();
       setLoading(false);
     } catch (error) {
       console.error(error);
@@ -54,7 +52,7 @@ export default function MintHat() {
         </select>
 
         <input {...register("wearer", { required: true, validate: isAddress })} placeholder="_wearer" />
-        {errors.wearer && <span>Enter a valid address</span>}
+        {errors.wearer && <span>{t("Shared.enter-valid-address")}</span>}
 
         <input disabled={!account || !isValid} type="submit" value="Mint" />
       </form>

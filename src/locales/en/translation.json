@@ -7,7 +7,9 @@
     "add": "Add",
     "data-load-failed": "Failed loading data",
     "connect-your-wallet": "Connect your wallet",
-    "follow-wallet": "Follow your wallet instructions..."
+    "follow-wallet": "Follow your wallet instructions...",
+    "enter-valid-address": "Enter a valid address",
+    "enter-valid-url": "Enter a valid url"
   },
   "ErrorPage": {
     "message": "Something went wrong :/"
@@ -41,7 +43,7 @@
     "create-success": "Your proposal was created successfully!",
     "create-proposal": "Create Proposal",
     "description-placeholder": "Description (optional)",
-    "discussion-placeholder": "Discussion (optional)",
+    "discussion-placeholder": "Discussion URL (optional)",
     "basic-proposal-choices": "Choices for basic proposal are 'For', 'Against' and 'Abstain'",
     "start-date-placeholder": "Start Date",
     "end-date-placeholder": "End Date",

@@ -31,3 +31,13 @@ export const getTxLoadingText = (transactionState: TransactionState) => {
 export const getAllTrueIndexes = (array: (boolean | undefined)[]): number[] => {
   return array.reduce((out, bool, index) => bool ? out.concat(index as any) : out, []);
 }
+
+export const isValidURL = (value: string) => {
+  const pattern = new RegExp('^(https?:\\/\\/)?' +
+    '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' +
+    '((\\d{1,3}\\.){3}\\d{1,3}))' +
+    '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' +
+    '(\\?[;&a-z\\d%_.~+=-]*)?' +
+    '(\\#[-a-z\\d_]*)?$', 'i');
+  return !!pattern.test(value);
+}

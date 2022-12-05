@@ -34,9 +34,7 @@ export default function CreateHat() {
         data.toggle,
         data.imageURI
       );
-      console.log(receipt);
-      /** TODO: call reset only on success - either according the receipt or the tx status */
-      reset();
+      if (receipt?.status === 1) reset();
       setLoading(false);
     } catch (error) {
       console.error(error);
@@ -55,9 +53,9 @@ export default function CreateHat() {
         <input {...register("details", { required: true })} placeholder="_details" />
         <input type="number" {...register("maxSupply", { required: true, valueAsNumber: true })} placeholder="_maxSupply" />
         <input {...register("eligibility", { required: true, validate: isAddress })} placeholder="_eligibility" />
-        {errors.eligibility && <span>Enter a valid address</span>}
+        {errors.eligibility && <span>{t("Shared.enter-valid-address")}</span>}
         <input {...register("toggle", { required: true, validate: isAddress })} placeholder="_toggle" />
-        {errors.toggle && <span>Enter a valid address</span>}
+        {errors.toggle && <span>{t("Shared.enter-valid-address")}</span>}
         <input {...register("imageURI", { required: true })} placeholder="_imageURI" />
 
         <input disabled={!account || !isValid} type="submit" value="Create" />
