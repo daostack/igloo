@@ -44,7 +44,7 @@ export default function CreateProposal() {
         space: spaceId,
         app: getAppName(),
         plugins: JSON.stringify({}),
-        snapshot: 1,
+        snapshot: await (library as Web3Provider).getBlockNumber(),
         choices: choices,
         start: toUnixTime(data.start),
         end: toUnixTime(data.end),
