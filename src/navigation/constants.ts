@@ -6,5 +6,6 @@ export enum Routes {
   spaces = "/spaces",
   space = "spaces/:spaceId",
   proposal = "spaces/:spaceId/proposal/:proposalId",
-  createProposal = "spaces/:spaceId/create-proposal"
+  createProposal = "spaces/:spaceId/create-proposal",
+  discourse = "/discourse"
 }

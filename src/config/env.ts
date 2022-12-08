@@ -11,3 +11,6 @@ export const APIS = {
   [ChainId.Mainnet]: process.env.REACT_APP_ALCHEMY_MAINNET_API_KEY,
   [ChainId.Goerli]: process.env.REACT_APP_ALCHEMY_GOERLI_API_KEY
 }
+
+export const DISCOURSE_API_KEY = process.env.REACT_APP_DISCOURSE_API_KEY;
+export const DISCOURSE_API_USERNAME = process.env.REACT_APP_DISCOURSE_API_USERNAME;

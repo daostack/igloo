@@ -13,6 +13,7 @@ export default function NavLinks() {
     <div className="nav-links">
       <NavLink to="/">LOGO</NavLink>
       <NavLink className={({ isActive }) => isActive ? "active" : undefined} to={Routes.spaces}>Spaces</NavLink>
+      <NavLink to={Routes.discourse}>Discourse</NavLink>
       {isTopHat && <NavLink to={Routes.admin}>Admin</NavLink>}
     </div>
   )
