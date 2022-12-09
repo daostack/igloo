@@ -18,3 +18,10 @@
     max-width: $max-content-width;
   }
 }
+
+@mixin modal {
+  @media only screen and (max-width: $mobile-limit) {
+    height: 100%;
+    max-width: unset;
+  }
+}

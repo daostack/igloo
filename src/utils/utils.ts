@@ -1,4 +1,4 @@
-import moment from "moment";
+import moment, { Moment } from "moment";
 import millify from "millify";
 import { DateFormat } from "../constants";
 import { BigNumberish } from "ethers";
@@ -18,6 +18,10 @@ export const toUnixTime = (value: Date) => {
 
 export const fromUnixTime = (value: number, foramt: DateFormat = DateFormat.MomentLong) => {
   return moment.unix(value).local().format(foramt)
+}
+
+export const formatDate = (value: Date | Moment | string, foramt: DateFormat = DateFormat.MomentLong) => {
+  return moment(value).format(foramt);
 }
 
 export const formatNumber = (value: number | string | BigNumberish, precision: number = 2) => {

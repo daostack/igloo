@@ -1,6 +1,6 @@
 
 import { useCallback } from "react";
-import { useParams } from "react-router";
+import { useLocation, useParams } from "react-router";
 import DatePicker from 'react-datepicker';
 import { useNavigate } from "react-router-dom";
 import { useForm, useFieldArray, Controller } from "react-hook-form";
@@ -17,12 +17,24 @@ import Loading from "../../../../components/Loading/Loading";
 import { SnapshotError, SnapshotReceipt } from "../../../../interfaces/snapshot";
 import "react-datepicker/dist/react-datepicker.css";
 import "./index.scss";
+import { Post as DiscoursePost } from "../../../../interfaces/discourse";
+import { DISCOURSE_SERVER } from "../../../../config/env";
 
 export default function CreateProposal() {
+  const { state } = useLocation();
+  const discoursePostData = {};
+  if (state?.post) {
+    const post: DiscoursePost = state.post;
+    discoursePostData["title"] = post.topic_title;
+    discoursePostData["discussion"] = `https://${DISCOURSE_SERVER}/t/${post.topic_id}`;
+  }
   const [loading, setLoading] = useToggle();
   const { account, library } = useEthers();
   const { spaceId } = useParams();
-  const { control, register, handleSubmit, watch, formState: { errors, isValid } } = useForm({ mode: "onBlur" });
+  const { control, register, handleSubmit, watch, formState: { errors, isValid } } = useForm<any>({
+    mode: "onBlur",
+    defaultValues: discoursePostData
+  });
   const { fields, append, remove } = useFieldArray({ control, name: "choices", rules: { minLength: 1 } });
   const toast = useToast();
   const navigate = useNavigate();

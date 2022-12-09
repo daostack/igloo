@@ -1,3 +1,4 @@
+import { AxiosError } from "axios";
 import { useCallback, useEffect, useState } from "react";
 
 export enum AsyncStatus {
@@ -7,7 +8,7 @@ export enum AsyncStatus {
   Error
 }
 
-export const useAsync = <T, E = string>(asyncFunction: () => Promise<T>, immediate = true) => {
+export const useAsync = <T, E = AxiosError>(asyncFunction: () => Promise<T>, immediate = true) => {
   const [status, setStatus] = useState<AsyncStatus>(AsyncStatus.Idle);
   const [value, setValue] = useState<T | null>(null);
   const [error, setError] = useState<E | null>(null);

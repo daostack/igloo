@@ -1,10 +1,9 @@
-export interface Categories {
-  can_create_category: boolean
-  can_create_topic: boolean
-  categories: Category[]
-}
 
-export interface Category {
+export interface Post {
   id: number
+  created_at: string
   name: string
+  topic_title: string
+  username: string
+  topic_id: number
 }
