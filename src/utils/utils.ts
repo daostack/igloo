@@ -20,7 +20,7 @@ export const fromUnixTime = (value: number, foramt: DateFormat = DateFormat.Mome
   return moment.unix(value).local().format(foramt)
 }
 
-export const formatDate = (value: Date | Moment | string, foramt: DateFormat = DateFormat.MomentLong) => {
+export const formatDate = (value: Date | Moment | string | undefined, foramt: DateFormat = DateFormat.MomentLong) => {
   return moment(value).format(foramt);
 }
 

@@ -15,18 +15,19 @@ import { DateFormat } from "../../../../constants";
 import { useToggle } from "../../../../hooks/useToggle";
 import Loading from "../../../../components/Loading/Loading";
 import { SnapshotError, SnapshotReceipt } from "../../../../interfaces/snapshot";
-import "react-datepicker/dist/react-datepicker.css";
-import "./index.scss";
 import { Post as DiscoursePost } from "../../../../interfaces/discourse";
 import { DISCOURSE_SERVER } from "../../../../config/env";
+import "react-datepicker/dist/react-datepicker.css";
+import "./index.scss";
 
 export default function CreateProposal() {
   const { state } = useLocation();
   const discoursePostData = {};
   if (state?.post) {
     const post: DiscoursePost = state.post;
-    discoursePostData["title"] = post.topic_title;
+    discoursePostData["title"] = post.topic_slug;
     discoursePostData["discussion"] = `https://${DISCOURSE_SERVER}/t/${post.topic_id}`;
+    discoursePostData["body"] = post.raw;
   }
   const [loading, setLoading] = useToggle();
   const { account, library } = useEthers();
