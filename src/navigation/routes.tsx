@@ -3,7 +3,8 @@ import App from '../App';
 import AdminPage from '../pages/AdminPage/AdminPage';
 import CreateHat from '../pages/AdminPage/components/CreateHat/CreateHat';
 import MintHat from '../pages/AdminPage/components/MintHat/MintHat';
-import Post from '../pages/DiscoursePage/components/Post/Post';
+import CreatePost from '../pages/DiscoursePage/components/CreatePost/CreatePost';
+import Post from '../pages/DiscoursePage/components/Topic/Topic';
 import DiscoursePage from '../pages/DiscoursePage/DiscoursePage';
 import ErrorPage from '../pages/ErrorPage/ErrorPage';
 import CreateProposal from '../pages/SpacesPage/components/CreateProposal/CreateProposal';
@@ -55,6 +56,10 @@ export const router = createBrowserRouter([
       {
         path: Routes.discoursePost,
         element: <Post />
+      },
+      {
+        path: Routes.createPost,
+        element: <CreatePost />
       }
     ]
   }

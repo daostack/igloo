@@ -8,5 +8,6 @@ export enum Routes {
   proposal = "spaces/:spaceId/proposal/:proposalId",
   createProposal = "spaces/:spaceId/create-proposal",
   discourse = "/discourse",
-  discoursePost = "/discourse/:postId"
+  discoursePost = "/discourse/:topicId",
+  createPost = "/discourse/create-post"
 }

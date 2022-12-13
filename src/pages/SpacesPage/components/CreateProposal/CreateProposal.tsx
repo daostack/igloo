@@ -15,7 +15,7 @@ import { DateFormat } from "../../../../constants";
 import { useToggle } from "../../../../hooks/useToggle";
 import Loading from "../../../../components/Loading/Loading";
 import { SnapshotError, SnapshotReceipt } from "../../../../interfaces/snapshot";
-import { Post as DiscoursePost } from "../../../../interfaces/discourse";
+import { Topic } from "../../../../interfaces/discourse";
 import { DISCOURSE_SERVER } from "../../../../config/env";
 import "react-datepicker/dist/react-datepicker.css";
 import "./index.scss";
@@ -23,11 +23,12 @@ import "./index.scss";
 export default function CreateProposal() {
   const { state } = useLocation();
   const discoursePostData = {};
-  if (state?.post) {
-    const post: DiscoursePost = state.post;
-    discoursePostData["title"] = post.topic_slug;
-    discoursePostData["discussion"] = `https://${DISCOURSE_SERVER}/t/${post.topic_id}`;
-    discoursePostData["body"] = post.raw;
+  if (state?.topic) {
+    const topic: Topic = state.topic;
+    discoursePostData["title"] = topic.title;
+    discoursePostData["discussion"] = `https://${DISCOURSE_SERVER}/t/${topic.id}`;
+    // TODO: need to add first comment content?
+    discoursePostData["body"] = "";
   }
   const [loading, setLoading] = useToggle();
   const { account, library } = useEthers();

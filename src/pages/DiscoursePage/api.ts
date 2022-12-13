@@ -1,6 +1,6 @@
 import axios from "axios";
 import { DISCOURSE_SERVER } from "../../config/env";
-import { Post, Reply } from "../../interfaces/discourse";
+import { CreatePostPayload, Post, Topic } from "../../interfaces/discourse";
 
 // const headers = {
 //   "Api-Key": DISCOURSE_API_KEY,
@@ -11,14 +11,17 @@ export const getLatestPosts = async (): Promise<Post[]> => {
   return await (await axios.get(`https://${DISCOURSE_SERVER}/posts.json`)).data?.latest_posts;
 }
 
-export const getPost = async (postId: string): Promise<Post> => {
-  return await (await axios.get(`https://${DISCOURSE_SERVER}/posts/${postId}.json`)).data;
+export const getTopic = async (topicId: string): Promise<Topic> => {
+  return await (await axios.get(`https://${DISCOURSE_SERVER}/t/${topicId}.json`)).data;
 }
 
-// export const getPostReplies = async (postId: string): Promise<Reply[]> => {
-//   return await (await axios.get(`https://${DISCOURSE_SERVER}/posts/${postId}/replies.json`)).data;
-// }
-
-export const getPostsFromTopic = async (topicId: string): Promise<Reply[]> => {
-  return await (await axios.get(`https://${DISCOURSE_SERVER}/t/${topicId}/posts.json`)).data?.post_stream.posts;
+export const createPost = async (data: CreatePostPayload) => {
+  return await axios.post(
+    `https://${DISCOURSE_SERVER}/posts.json`,
+    JSON.stringify(data),
+    {
+      headers: {
+      "content-type": "application/json"
+      }
+    });
 }
