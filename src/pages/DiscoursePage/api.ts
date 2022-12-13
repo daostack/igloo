@@ -15,6 +15,10 @@ export const getPost = async (postId: string): Promise<Post> => {
   return await (await axios.get(`https://${DISCOURSE_SERVER}/posts/${postId}.json`)).data;
 }
 
-export const getPostReplies = async (postId: string): Promise<Reply[]> => {
-  return await (await axios.get(`https://${DISCOURSE_SERVER}/posts/${postId}/replies.json`)).data;
+// export const getPostReplies = async (postId: string): Promise<Reply[]> => {
+//   return await (await axios.get(`https://${DISCOURSE_SERVER}/posts/${postId}/replies.json`)).data;
+// }
+
+export const getPostsFromTopic = async (topicId: string): Promise<Reply[]> => {
+  return await (await axios.get(`https://${DISCOURSE_SERVER}/t/${topicId}/posts.json`)).data?.post_stream.posts;
 }

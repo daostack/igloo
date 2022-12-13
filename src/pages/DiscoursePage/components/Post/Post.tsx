@@ -16,10 +16,7 @@ export default function Post() {
     return await getPost(postId);
   }, [postId])
 
-
-
   const { status, value: post, error } = useAsync(getPostCallback);
-
 
   const createSnapshotProposal = useCallback((post: IPost) => {
     // TODO: temporary direct always to our space
@@ -33,8 +30,9 @@ export default function Post() {
   return (
     <div>
       <h2>{post?.topic_title ?? post?.topic_slug}</h2>
-      <Replies postId={postId} />
+      <p>{post?.raw}</p>
       <button onClick={() => createSnapshotProposal(post!)}>Create a proposal on Snapshot</button>
+      <Replies topicId={String(post?.topic_id)} />
       <h6>Created {formatDate(post?.created_at)} by {post?.username}</h6>
     </div>
   )

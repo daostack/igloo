@@ -1,5 +1,5 @@
 {
-  "WalletButton": {
+  "Web3ModalButton": {
     "connect": "Conectar",
     "disconnect": "Desconectar",
     "account": "Cuenta"

@@ -1,0 +1,14 @@
+@import "../../../../styles/colors.scss";
+@import "../../../../styles/global.scss";
+
+.replies {
+  @include content;
+  &__reply {
+    border-bottom: 1px solid $gray;
+    text-align: left;
+    padding: 0.5rem;
+    &__content {
+      width: fit-content;
+    }
+  }
+}

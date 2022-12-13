@@ -11,5 +11,8 @@ export interface Post {
 }
 
 export interface Reply {
-  
+  id: number
+  created_at: string
+  username: string
+  cooked: string
 }
