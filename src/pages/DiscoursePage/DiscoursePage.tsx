@@ -10,13 +10,11 @@ import "./index.scss";
 export default function DiscoursePage() {
   const { status, value: posts, error } = useAsync(getLatestPosts);
 
-  console.log(posts)
-
   return (
     <div className="discourse-page">
       <h2>Lastest posts across topics from {DISCOURSE_SERVER}</h2>
       {error && <span>{error.code}: {error?.message}</span>}
-      <Link to={Routes.createPost}>Create a Topic</Link>
+      <Link to={Routes.createTopic}>Create a Topic</Link>
 
       {status === AsyncStatus.Pending ? <span>{t("Shared.loading")}</span> : (
         posts?.map(post => (

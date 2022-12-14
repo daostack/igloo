@@ -25,7 +25,7 @@ export interface Post {
   raw: string
 }
 
-export interface CreatePostPayload {
+export interface CreateTopicPayload {
   title: string
   raw: string
   topic_id?: number

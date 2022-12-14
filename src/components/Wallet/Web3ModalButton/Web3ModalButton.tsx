@@ -5,6 +5,7 @@ import WalletConnectProvider from '@walletconnect/web3-provider';
 import { useToast } from "../../Toast";
 import { t } from "i18next";
 import { ENDPOINTS } from "../../../config/env";
+import "./index.scss";
 
 export const Web3ModalButton = () => {
   const { account, activate, deactivate, error } = useEthers();

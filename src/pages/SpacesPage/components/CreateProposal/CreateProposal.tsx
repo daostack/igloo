@@ -27,8 +27,8 @@ export default function CreateProposal() {
     const topic: Topic = state.topic;
     discoursePostData["title"] = topic.title;
     discoursePostData["discussion"] = `https://${DISCOURSE_SERVER}/t/${topic.id}`;
-    // TODO: need to add first comment content?
-    discoursePostData["body"] = "";
+    // TODO: we assume the first post is the topic content therefore we "slice". Need to verify it's correct.
+    discoursePostData["body"] = topic.post_stream.posts[0].cooked;
   }
   const [loading, setLoading] = useToggle();
   const { account, library } = useEthers();

@@ -3,7 +3,7 @@ import App from '../App';
 import AdminPage from '../pages/AdminPage/AdminPage';
 import CreateHat from '../pages/AdminPage/components/CreateHat/CreateHat';
 import MintHat from '../pages/AdminPage/components/MintHat/MintHat';
-import CreatePost from '../pages/DiscoursePage/components/CreatePost/CreatePost';
+import CreateTopic from '../pages/DiscoursePage/components/CreateTopic/CreateTopic';
 import Post from '../pages/DiscoursePage/components/Topic/Topic';
 import DiscoursePage from '../pages/DiscoursePage/DiscoursePage';
 import ErrorPage from '../pages/ErrorPage/ErrorPage';
@@ -58,8 +58,8 @@ export const router = createBrowserRouter([
         element: <Post />
       },
       {
-        path: Routes.createPost,
-        element: <CreatePost />
+        path: Routes.createTopic,
+        element: <CreateTopic />
       }
     ]
   }

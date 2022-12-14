@@ -19,11 +19,9 @@ export default function Topic() {
 
   const { status, value: topic, error } = useAsync(getTopicCallback);
 
-  console.log(topic)
-
   const createSnapshotProposal = useCallback((topic: ITopic) => {
     // TODO: temporary direct always to our space
-    navigate(`${Routes.spaces}/aperture-dev-2.eth/create-proposal`, { state: { topic: topic } })
+    navigate(`${Routes.spaces}/aperture-dev-2.eth/create-proposal`, { state: { topic: topic } });
   }, [navigate])
 
   if (!topicId) return null;
@@ -33,7 +31,7 @@ export default function Topic() {
   return (
     <div>
       <h2>{topic?.title}</h2>
-      <p>{ReactHtmlParser(topic?.post_stream.posts[0].cooked)}</p>
+      <>{ReactHtmlParser(topic?.post_stream.posts[0].cooked)}</>
       <button onClick={() => createSnapshotProposal(topic!)}>Create a proposal on Snapshot from this topic</button>
       <h6>Created {formatDate(topic?.created_at)} by {topic?.details.created_by.name}</h6>
       <Posts posts={topic?.post_stream.posts} />
