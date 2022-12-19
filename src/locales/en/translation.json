@@ -9,17 +9,19 @@
     "connect-your-wallet": "Connect your wallet",
     "follow-wallet": "Follow your wallet instructions...",
     "enter-valid-address": "Enter a valid address",
-    "enter-valid-url": "Enter a valid url"
+    "enter-valid-url": "Enter a valid url",
+    "back": "Back",
+    "load-more": "Load more"
+  },
+  "Menu": {
+    "hamburger-menu-alt": "Menu"
   },
   "ErrorPage": {
     "message": "Something went wrong :/"
   },
   "Web3ModalButton": {
-    "connect": "Connect",
+    "connect": "Connect Wallet",
     "disconnect": "Disconnect"
-  },
-  "WalletBalance": {
-    "eth-balance": "ETH Balance:"
   },
   "WalletInfo": {
     "no-hats": "No Hats Yet",

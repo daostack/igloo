@@ -1,0 +1,9 @@
+@import "../../../../styles/global.scss";
+
+.proposal-element {
+}
+
+@media only screen and (max-width: $mobile-limit) {
+  .proposal-element {
+  }
+}

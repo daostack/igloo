@@ -5,6 +5,9 @@
 export interface Space {
   id: string
   name: string
+  about: string
+  network: string
+  symbol: string
 }
 
 export type ProposalState = "active" | "closed" | "pending";

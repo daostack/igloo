@@ -1,7 +1,6 @@
 {
   "Web3ModalButton": {
     "connect": "Conectar",
-    "disconnect": "Desconectar",
-    "account": "Cuenta"
+    "disconnect": "Desconectar"
   }
 }

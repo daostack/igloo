@@ -1,0 +1,17 @@
+@import "../../../../styles/colors.scss";
+@import "../../../../styles/constants.scss";
+
+.space-element {
+  border: 1px solid $gray-2;
+  width: 500px;
+  margin: 0.5rem 0;
+  text-align: left;
+  padding: 0.5rem;
+  box-sizing: border-box;
+}
+
+@media only screen and (max-width: $mobile-limit) {
+  .space-element {
+    width: 90%;
+  }
+}

@@ -1,0 +1,8 @@
+@import "../../../../styles/global.scss";
+
+.proposal {
+  @include content;
+  &__header {
+    display: flex;
+  }
+}

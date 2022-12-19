@@ -1,0 +1,11 @@
+@import "../../../styles/constants.scss";
+
+.wallet-info {
+  margin: 0 0.5rem;
+}
+
+@media only screen and (max-width: $mobile-limit) {
+  .wallet-info {
+    margin: 0.5rem 0;
+  }
+}

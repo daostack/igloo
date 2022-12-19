@@ -20,9 +20,12 @@ export default function Space() {
 
   return (
     <div className="space">
-      <h2>{spaceData.space.name}</h2>
-      {/* TODO: need to understand who can create a proposal for each space and manifest this in the UI */}
-      <Link to="create-proposal">{t("Space.create-proposal")}</Link>
+      <div className="space__header">
+        <h2>{spaceData.space.name}</h2>
+        {/* TODO: need to understand who can create a proposal for each space and manifest this in the UI */}
+        <Link to="create-proposal">{t("Space.create-proposal")}</Link>
+      </div>
+
       <div className="space__proposals-container">
         {proposals.length === 0 ? <span>{t("Space.no-proposals")}</span> : proposals}
       </div>

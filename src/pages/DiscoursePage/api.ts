@@ -21,7 +21,7 @@ export const createTopic = async (data: CreateTopicPayload) => {
     JSON.stringify(data),
     {
       headers: {
-      "content-type": "application/json"
+        "content-type": "application/json"
       }
     });
 }

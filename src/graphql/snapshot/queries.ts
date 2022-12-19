@@ -9,6 +9,9 @@ query Spaces($first: Int!, $skip: Int!, $orderBy: String!) {
   ) {
     id
     name
+    about
+    network
+    symbol
   }
 }
 `;

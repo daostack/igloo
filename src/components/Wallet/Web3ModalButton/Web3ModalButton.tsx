@@ -5,12 +5,14 @@ import WalletConnectProvider from '@walletconnect/web3-provider';
 import { useToast } from "../../Toast";
 import { t } from "i18next";
 import { ENDPOINTS } from "../../../config/env";
+import { useToggle } from "../../../hooks/useToggle";
 import "./index.scss";
 
 export const Web3ModalButton = () => {
   const { account, activate, deactivate, error } = useEthers();
   const { ens } = useLookupAddress(account);
   const toast = useToast();
+  const [connecting, setConnecting] = useToggle(false);
 
   useEffect(() => {
     if (error) {
@@ -39,10 +41,13 @@ export const Web3ModalButton = () => {
       providerOptions,
     })
     try {
+      setConnecting(true);
       const provider = await web3Modal.connect();
       await activate(provider);
+      setConnecting(false);
     } catch (error) {
       toast.open(error instanceof Error ? error.message : t("Shared.general-error"));
+      setConnecting(false);
     }
   }
 
@@ -53,7 +58,7 @@ export const Web3ModalButton = () => {
           <span>{ens ?? shortenIfAddress(account)}</span>
           <button onClick={() => deactivate()}>{t("Web3ModalButton.disconnect")}</button>
         </>
-      ) : <button onClick={activateProvider}>{t("Web3ModalButton.connect")}</button>}
+      ) : <button disabled={connecting} onClick={activateProvider}>{connecting ? t("Shared.loading") : t("Web3ModalButton.connect")}</button>}
     </div>
   )
 }

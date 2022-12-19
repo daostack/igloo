@@ -11,6 +11,7 @@ import { useToast } from "../../../../components/Toast";
 import { fromUnixTime, getAppName } from "../../../../utils/utils";
 import { useToggle } from "../../../../hooks/useToggle";
 import Loading from "../../../../components/Loading/Loading";
+import "./index.scss";
 
 export default function Proposal() {
   const [loading, setLoading] = useToggle();
@@ -59,8 +60,10 @@ export default function Proposal() {
   if (proposalLoading || !proposal) return <span>{t("Shared.loading")}</span>
 
   return (
-    <div>
-      <h2>{proposal.title}</h2>
+    <div className="proposal">
+      <div className="proposal__header">
+        <h2>{proposal.title}</h2>
+      </div>
       <h5>{t("Proposal.your-vp")} {vpError ? t("Shared.data-load-failed") : vpLoading ? t("Shared.loading") : vp ? vp.vp : t("Shared.connect-your-wallet")}</h5>
       {proposal.state === "active" ? (
         <>
