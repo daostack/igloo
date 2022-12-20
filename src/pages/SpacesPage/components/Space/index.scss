@@ -1,14 +1,24 @@
 @import "../../../../styles/global.scss";
+@import "../../../../styles/colors.scss";
 
 .space {
+  display: flex;
   @include content;
-  &__header {
+  &__nav {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
+    flex-direction: column;
+    background-color: $gray-3;
+    padding: 0.5rem;
+    &__links {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
   }
-  &__proposals-container {
-    display: flex;
+}
+
+@media only screen and (max-width: $mobile-limit) {
+  .space {
     flex-direction: column;
   }
 }

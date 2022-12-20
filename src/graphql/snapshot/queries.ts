@@ -10,7 +10,6 @@ query Spaces($first: Int!, $skip: Int!, $orderBy: String!) {
     id
     name
     about
-    network
     symbol
   }
 }
@@ -29,6 +28,9 @@ query SpaceProposals($spaceId: String!) {
   proposals(where: { space_in: [$spaceId] }) {
     id
     title
+    state
+    start
+    end
   }
 }
 `
@@ -42,9 +44,11 @@ export const GET_PROPOSAL = gql`
       space {
         id
       }
+      created
       state
       start
       end
+      body
     }
   }
 `

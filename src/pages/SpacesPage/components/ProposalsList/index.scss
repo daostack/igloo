@@ -1,0 +1,14 @@
+@import "../../../../styles/constants.scss";
+
+.proposals-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: auto;
+}
+
+@media only screen and (max-width: $mobile-limit) {
+  .proposals-list {
+    margin: unset;
+  }
+}

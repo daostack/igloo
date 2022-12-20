@@ -22,6 +22,8 @@ export interface Proposal {
   state: ProposalState
   start: number
   end: number
+  created: number
+  body: string
 }
 
 export interface VotingPower {

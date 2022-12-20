@@ -1,9 +1,19 @@
 @import "../../../../styles/global.scss";
+@import "../../../../styles/colors.scss";
 
 .proposal-element {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid $gray-2;
+  width: 500px;
+  margin: 0.5rem 0;
+  text-align: left;
+  padding: 0.5rem;
+  box-sizing: border-box;
 }
 
 @media only screen and (max-width: $mobile-limit) {
   .proposal-element {
+    width: 90%;
   }
 }

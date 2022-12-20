@@ -9,6 +9,7 @@ import DiscoursePage from '../pages/DiscoursePage/DiscoursePage';
 import ErrorPage from '../pages/ErrorPage/ErrorPage';
 import CreateProposal from '../pages/SpacesPage/components/CreateProposal/CreateProposal';
 import Proposal from '../pages/SpacesPage/components/Proposal/Proposal';
+import ProposalsList from '../pages/SpacesPage/components/ProposalsList/ProposalsList';
 import Space from '../pages/SpacesPage/components/Space/Space';
 import SpacesPage from '../pages/SpacesPage/SpacesPage';
 import { Routes } from './constants';
@@ -40,6 +41,12 @@ export const router = createBrowserRouter([
       {
         path: Routes.space,
         element: <Space />,
+        children: [
+          {
+            path: Routes.proposalsList,
+            element: <ProposalsList />,
+          }
+        ]
       },
       {
         path: Routes.proposal,

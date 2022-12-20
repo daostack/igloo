@@ -61,22 +61,30 @@ export default function Proposal() {
 
   return (
     <div className="proposal">
-      <div className="proposal__header">
-        <h2>{proposal.title}</h2>
+      {/* <div>
+        <BackButton path={`${Routes.spaces}/${spaceId}/proposals-list`} />
+      </div> */}
+      <div className="proposal__content">
+        <h3>{proposal.title}</h3>
+        <p>{proposal.body}</p>
+        <h6>{t("Proposal.your-vp")} {vpError ? t("Shared.data-load-failed") : vpLoading ? t("Shared.loading") : vp ? vp.vp : t("Shared.connect-your-wallet")}</h6>
+        {proposal.state === "active" ? (
+          <>
+            {!votesLoading && !votesError && (
+              <select value={choice} onChange={e => setChoice(e.target.value)}>
+                {proposal.choices.map((choice, index) =>
+                  <option key={index} value={index + 1}>{choice}</option>
+                )}
+              </select>
+            )}
+            <button disabled={!account || !choice || vp?.vp === 0} onClick={vote}>{t("Proposal.vote")}</button>
+          </>
+        ) : proposal.state === "closed" ? t("Proposal.vote-ended") : `${t("Proposal.vote-begins")} ${fromUnixTime(proposal.start)} `}
       </div>
-      <h5>{t("Proposal.your-vp")} {vpError ? t("Shared.data-load-failed") : vpLoading ? t("Shared.loading") : vp ? vp.vp : t("Shared.connect-your-wallet")}</h5>
-      {proposal.state === "active" ? (
-        <>
-          {!votesLoading && !votesError && (
-            <select value={choice} onChange={e => setChoice(e.target.value)}>
-              {proposal.choices.map((choice, index) =>
-                <option key={index} value={index + 1}>{choice}</option>
-              )}
-            </select>
-          )}
-          <button disabled={!account || !choice || vp?.vp === 0} onClick={vote}>{t("Proposal.vote")}</button>
-        </>
-      ) : proposal.state === "closed" ? t("Proposal.vote-ended") : `${t("Proposal.vote-begins")} ${fromUnixTime(proposal.start)} `}
+      <div className="proposal__stage">
+        <span>Created {fromUnixTime(proposal.created)}</span>
+        <b>PROPOSAL STAGE</b>
+      </div>
       {loading && <Loading text={t("Shared.follow-wallet")!} />}
     </div>
   )
