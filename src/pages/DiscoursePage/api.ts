@@ -1,11 +1,12 @@
 import axios from "axios";
-import { DISCOURSE_SERVER } from "../../config/env";
+import { DISCOURSE_API_KEY, DISCOURSE_API_USERNAME, DISCOURSE_SERVER } from "../../config/env";
 import { CreateTopicPayload, Post, Topic } from "../../interfaces/discourse";
 
-// const headers = {
-//   "Api-Key": DISCOURSE_API_KEY,
-//   "Api-Username": DISCOURSE_API_USERNAME
-// }
+const headers = {
+  "content-type": "multipart/form-data",
+  "api-key": DISCOURSE_API_KEY,
+  "api-username": DISCOURSE_API_USERNAME,
+}
 
 export const getLatestPosts = async (): Promise<Post[]> => {
   return await (await axios.get(`https://${DISCOURSE_SERVER}/posts.json`)).data?.latest_posts;
@@ -20,8 +21,6 @@ export const createTopic = async (data: CreateTopicPayload) => {
     `https://${DISCOURSE_SERVER}/posts.json`,
     JSON.stringify(data),
     {
-      headers: {
-        "content-type": "application/json"
-      }
+      headers: headers
     });
 }

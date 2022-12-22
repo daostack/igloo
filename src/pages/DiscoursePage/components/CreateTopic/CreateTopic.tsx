@@ -10,7 +10,13 @@ export default function CreateTopic() {
   const { register, handleSubmit, formState: { errors, isValid } } = useForm<CreateTopicPayload>({ mode: "onBlur" });
 
   const create: SubmitHandler<CreateTopicPayload> = useCallback(async data => {
-    return await createTopic(data);
+    try {
+      data["topic_id"] = 1;
+      const res = await createTopic(data);
+      console.log(res);
+    } catch (error) {
+      console.error(error);
+    }
   }, [])
 
   return (

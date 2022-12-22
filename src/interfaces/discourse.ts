@@ -26,8 +26,8 @@ export interface Post {
 }
 
 export interface CreateTopicPayload {
-  title: string
+  title?: string
   raw: string
   topic_id?: number
-  category?: number
+  category?: number,
 }
