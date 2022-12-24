@@ -17,6 +17,7 @@ import Loading from "../../../../components/Loading/Loading";
 import { SnapshotError, SnapshotReceipt } from "../../../../interfaces/snapshot";
 import { Topic } from "../../../../interfaces/discourse";
 import { DISCOURSE_SERVER } from "../../../../config/env";
+import BackButton from "../../../../components/BackButton/BackButton";
 import "react-datepicker/dist/react-datepicker.css";
 import "./index.scss";
 
@@ -77,8 +78,10 @@ export default function CreateProposal() {
 
   return (
     <div className="create-proposal">
-      <h2>{t("CreateProposal.create-proposal")}</h2>
+      <BackButton segments={1} />
       <form onSubmit={handleSubmit(create)} className="create-proposal__form">
+        <h3>{t("CreateProposal.new-proposal")}</h3>
+
         <input {...register("title", { required: true })} placeholder="Title" />
         {errors.title && <span>{t("Shared.required")}</span>}
         <textarea {...register("body", { maxLength: DESCRIPTION_MAX_LENGTH })} placeholder={t("CreateProposal.description-placeholder")!} />

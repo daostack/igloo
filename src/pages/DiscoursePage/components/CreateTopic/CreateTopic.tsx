@@ -11,7 +11,6 @@ export default function CreateTopic() {
 
   const create: SubmitHandler<CreateTopicPayload> = useCallback(async data => {
     try {
-      data["topic_id"] = 1;
       const res = await createTopic(data);
       console.log(res);
     } catch (error) {

@@ -1,6 +1,6 @@
 import { useQuery } from "@apollo/client";
 import { Outlet, useParams } from "react-router"
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { t } from "i18next";
 import { GET_SPACE } from "../../../../graphql/snapshot/queries";
 import { Routes } from "../../../../navigation/constants";
@@ -19,10 +19,11 @@ export default function Space() {
         <h4>{spaceData.space.name}</h4>
         <div className="space__nav__links">
           {/* TODO: need to understand who can create a proposal for each space and manifest this in the UI */}
-          <Link to="create-proposal">{t("Space.create-proposal")}</Link>
+          <NavLink to="create-proposal">{t("Space.create-proposal")}</NavLink>
           <span>About</span>
-          <Link to={Routes.proposalsList}>Proposals</Link>
+          <NavLink to={Routes.proposalsList}>Proposals</NavLink>
           <span>Delegations</span>
+          <span>Roles</span>
         </div>
       </div>
 

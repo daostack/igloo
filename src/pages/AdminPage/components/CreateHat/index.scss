@@ -1,7 +1,8 @@
+@import "../../../../styles/global.scss";
+
 .create-hat {
   &__form {
-    display: flex;
-    flex-direction: column;
+    @include form;
     max-width: 500px;
     margin: auto;
   }

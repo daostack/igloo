@@ -3,26 +3,31 @@
 
 .proposal {
   display: flex;
+  flex-direction: column;
   @include content;
   &__content {
     display: flex;
-    flex-direction: column;
-    border: 1px solid $gray-2;
-    padding: 0.5rem;
-    margin: 0.5rem;
-  }
-  &__stage {
-    display: flex;
-    flex-direction: column;
-    border: 1px solid $gray-2;
-    padding: 0.5rem;
-    margin: 0.5rem;
+    &__data {
+      display: flex;
+      flex-direction: column;
+      border: 1px solid $gray-2;
+      padding: 0.5rem;
+      margin: 0.5rem;
+    }
+    &__stage-container {
+      display: flex;
+      flex-direction: column;
+      border: 1px solid $gray-2;
+      padding: 0.5rem;
+      margin: 0.5rem;
+    }
   }
 }
 
 @media only screen and (max-width: $mobile-limit) {
   .proposal {
-    display: flex;
-    flex-direction: column-reverse;
+    &__content {
+      flex-direction: column-reverse;
+    }
   }
 }

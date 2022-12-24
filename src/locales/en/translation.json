@@ -43,7 +43,7 @@
   },
   "CreateProposal": {
     "create-success": "Your proposal was created successfully!",
-    "create-proposal": "Create Proposal",
+    "new-proposal": "New Proposal",
     "description-placeholder": "Description (optional)",
     "discussion-placeholder": "Discussion URL (optional)",
     "basic-proposal-choices": "Choices for basic proposal are 'For', 'Against' and 'Abstain'",

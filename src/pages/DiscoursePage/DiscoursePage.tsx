@@ -2,7 +2,6 @@ import { t } from "i18next";
 import { Link } from "react-router-dom";
 import { DISCOURSE_SERVER } from "../../config/env";
 import { AsyncStatus, useAsync } from "../../hooks/useAsync";
-import { Routes } from "../../navigation/constants";
 import { formatDate } from "../../utils/utils";
 import { getLatestPosts } from "./api";
 import "./index.scss";
@@ -14,8 +13,7 @@ export default function DiscoursePage() {
     <div className="discourse-page">
       <h2>Lastest posts across topics from {DISCOURSE_SERVER}</h2>
       {error && <span>{error.code}: {error?.message}</span>}
-      <Link to={Routes.createTopic}>Create a Topic</Link>
-
+      {/* <Link to={Routes.createTopic}>Create a Topic</Link> */}
       {status === AsyncStatus.Pending ? <span>{t("Shared.loading")}</span> : (
         posts?.map(post => (
           <Link to={String(post.topic_id)} key={post.id}>

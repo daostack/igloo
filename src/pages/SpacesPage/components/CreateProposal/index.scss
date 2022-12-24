@@ -1,11 +1,19 @@
 @import "../../../../styles/global.scss";
+@import "../../../../styles/colors.scss";
 
 .create-proposal {
   @include content;
   &__form {
-    display: flex;
-    flex-direction: column;
+    @include form;
     max-width: 500px;
     margin: auto;
+  }
+}
+
+@media only screen and (max-width: $mobile-limit) {
+  .create-proposal {
+    &__form {
+      margin: 0 1rem;
+    }
   }
 }
