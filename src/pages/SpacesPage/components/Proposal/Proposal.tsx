@@ -6,7 +6,7 @@ import { useParams } from "react-router";
 import { Web3Provider } from "@ethersproject/providers";
 import { snapshotClient } from "../../../../config/snapshot";
 import { GET_PROPOSAL, GET_VOTES, GET_VOTING_POWER } from "../../../../graphql/snapshot/queries";
-import { Proposal as IProposal, SnapshotError, Votes, VotingPower } from "../../../../interfaces/snapshot";
+import { Proposal as IProposal, ProposalState, SnapshotError, Votes, VotingPower } from "../../../../interfaces/snapshot";
 import { useToast } from "../../../../components/Toast";
 import { fromUnixTime, getAppName } from "../../../../utils/utils";
 import { useToggle } from "../../../../hooks/useToggle";
@@ -71,7 +71,7 @@ export default function Proposal() {
           <h3>{proposal.title}</h3>
           <p>{proposal.body}</p>
           <h6>{t("Proposal.your-vp")} {vpError ? t("Shared.data-load-failed") : vpLoading ? t("Shared.loading") : vp ? vp.vp : t("Shared.connect-your-wallet")}</h6>
-          {proposal.state === "active" ? (
+          {proposal.state === ProposalState.Active ? (
             <>
               {!votesLoading && !votesError && (
                 <select value={choice} onChange={e => setChoice(e.target.value)}>
@@ -82,7 +82,7 @@ export default function Proposal() {
               )}
               <button disabled={!account || !choice || vp?.vp === 0} onClick={vote}>{t("Proposal.vote")}</button>
             </>
-          ) : proposal.state === "closed" ? t("Proposal.vote-ended") : `${t("Proposal.vote-begins")} ${fromUnixTime(proposal.start)} `}
+          ) : proposal.state === ProposalState.Closed ? t("Proposal.vote-ended") : `${t("Proposal.vote-begins")} ${fromUnixTime(proposal.start)} `}
         </div>
         <div className="proposal__content__stage-container">
           <span>Created {fromUnixTime(proposal.created)}</span>

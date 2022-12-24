@@ -1,0 +1,12 @@
+
+.tabs {
+  display: flex;
+  .tab {
+    padding: 0 0.5rem;
+    cursor: pointer;
+    &.active {
+      font-weight: bold;
+      border-bottom: 2px solid;
+    }
+  }
+}

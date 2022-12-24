@@ -24,8 +24,8 @@ export const GET_SPACE = gql`
 `
 
 export const GET_SPACE_PROPOSALS = gql`
-query SpaceProposals($spaceId: String!) {
-  proposals(where: { space_in: [$spaceId] }) {
+query SpaceProposals($spaceId: String!, $state: String!) {
+  proposals(where: { space_in: [$spaceId], state: $state }) {
     id
     title
     state

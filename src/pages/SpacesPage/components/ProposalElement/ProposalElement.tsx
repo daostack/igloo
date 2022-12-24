@@ -1,7 +1,7 @@
 
 import { Link } from "react-router-dom";
 import { Proposal } from "../../../../interfaces/snapshot";
-import { fromUnixTime } from "../../../../utils/utils";
+import ProposalState from "../ProposalState/ProposalState";
 import "./index.scss";
 
 interface IProps {
@@ -15,7 +15,7 @@ export default function ProposalElement({ proposal }: IProps) {
       <Link to={`proposal/${proposal.id}`}>
         <b>{proposal.title}</b>
       </Link>
-      <i><b>{proposal.state}</b> {`(${fromUnixTime(proposal.end)})`}</i>
+      <ProposalState proposal={proposal} />
     </div>
   )
 }

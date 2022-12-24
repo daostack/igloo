@@ -1,24 +1,53 @@
 
 import { useQuery } from "@apollo/client";
 import { t } from "i18next";
+import { useState } from "react";
 import { useParams } from "react-router";
+import Tabs, { Tab } from "../../../../components/Tabs/Tabs";
 import { GET_SPACE_PROPOSALS } from "../../../../graphql/snapshot/queries";
-import { Proposal } from "../../../../interfaces/snapshot";
+import { Proposal, ProposalState } from "../../../../interfaces/snapshot";
 import ProposalElement from "../ProposalElement/ProposalElement";
 import "./index.scss";
 
+const tabs: Tab[] = [
+  {
+    label: "Live",
+    value: ProposalState.Active
+  },
+  {
+    label: "Pending",
+    value: ProposalState.Pending,
+  },
+  {
+    label: "Archive",
+    value: ProposalState.Closed
+  }
+]
+
 export default function ProposalsList() {
   const { spaceId } = useParams();
-  const { data: proposalsData, error: proposalsError, loading: proposalsLoading } = useQuery(GET_SPACE_PROPOSALS, { variables: { spaceId: spaceId } });
+  const [tab, setTab] = useState<ProposalState>(ProposalState.Active);
 
-  if (proposalsError) return <span>{t("Shared.data-load-failed")}</span>
-  if (proposalsLoading) return <span>{t("Shared.loading")}</span>
+  const { data: proposalsData, error: proposalsError, loading: proposalsLoading } = useQuery(GET_SPACE_PROPOSALS,
+    {
+      variables:
+      {
+        spaceId: spaceId,
+        state: tab
+      }
+    });
 
-  const proposals = proposalsData.proposals.map((proposal: Proposal, index) => <ProposalElement key={index} proposal={proposal} />)
+  const proposals = proposalsData?.proposals?.map((proposal: Proposal, index) => <ProposalElement key={index} proposal={proposal} />)
 
   return (
     <div className="proposals-list">
-      {proposals.length === 0 ? <span>{t("Space.no-proposals")}</span> : proposals}
+      <div className="proposals-list__top">
+        <Tabs tabs={tabs} value={tab} onClick={setTab} />
+      </div>
+
+      {proposalsError && <span>{t("Shared.data-load-failed")}</span>}
+      {proposalsLoading && <span>{t("Shared.loading")}</span>}
+      {proposals?.length === 0 ? <span>{t("Space.no-proposals")}</span> : proposals}
     </div>
   )
 }

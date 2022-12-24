@@ -1,6 +1,6 @@
 
 import { useCallback } from "react";
-import { useLocation, useParams } from "react-router";
+import { generatePath, useLocation, useParams } from "react-router";
 import DatePicker from 'react-datepicker';
 import { useNavigate } from "react-router-dom";
 import { useForm, useFieldArray, Controller } from "react-hook-form";
@@ -18,6 +18,7 @@ import { SnapshotError, SnapshotReceipt } from "../../../../interfaces/snapshot"
 import { Topic } from "../../../../interfaces/discourse";
 import { DISCOURSE_SERVER } from "../../../../config/env";
 import BackButton from "../../../../components/BackButton/BackButton";
+import { Routes } from "../../../../navigation/constants";
 import "react-datepicker/dist/react-datepicker.css";
 import "./index.scss";
 
@@ -69,7 +70,7 @@ export default function CreateProposal() {
 
       setLoading(false);
       toast.open(t("CreateProposal.create-success"));
-      navigate(`/spaces/${spaceId}/proposal/${receipt.id}`);
+      navigate(`/${generatePath(Routes.proposal, { spaceId: spaceId, proposalId: receipt.id })}`);
     } catch (error) {
       setLoading(false);
       toast.open((error as SnapshotError)?.code || (error as SnapshotError)?.error_description);

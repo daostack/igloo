@@ -10,7 +10,11 @@ export interface Space {
   symbol: string
 }
 
-export type ProposalState = "active" | "closed" | "pending";
+export enum ProposalState {
+  Active = "active",
+  Closed = "closed",
+  Pending = "pending"
+}
 
 export interface Proposal {
   id: string
