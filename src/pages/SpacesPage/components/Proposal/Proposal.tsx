@@ -11,9 +11,32 @@ import { useToast } from "../../../../components/Toast";
 import { fromUnixTime, getAppName } from "../../../../utils/utils";
 import { useToggle } from "../../../../hooks/useToggle";
 import Loading from "../../../../components/Loading/Loading";
-import ProposalStage from "../ProposalStage/ProposalStage";
 import BackButton from "../../../../components/BackButton/BackButton";
+import Steps, { Step, StepState } from "../../../../components/Steps/Steps";
 import "./index.scss";
+
+const MOCK_STEPS_DATA: Step[] = [
+  {
+    label: "Request for comments",
+    description: "6 Days",
+    state: StepState.Done
+  },
+  {
+    label: "Temp Check",
+    description: "8 Days",
+    state: StepState.Done
+  },
+  {
+    label: "Consensus check",
+    description: "6 Days",
+    state: StepState.Current
+  },
+  {
+    label: "On-chain voting",
+    description: "8 Days",
+    state: StepState.Pending
+  }
+]
 
 export default function Proposal() {
   const [loading, setLoading] = useToggle();
@@ -86,7 +109,7 @@ export default function Proposal() {
         </div>
         <div className="proposal__content__stage-container">
           <span>Created {fromUnixTime(proposal.created)}</span>
-          <ProposalStage />
+          <Steps data={MOCK_STEPS_DATA} />
         </div>
       </div>
       {loading && <Loading text={t("Shared.follow-wallet")!} />}

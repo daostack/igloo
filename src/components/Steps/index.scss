@@ -1,0 +1,37 @@
+@import "../../styles/colors.scss";
+@import "../../styles/constants.scss";
+
+.steps {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1rem;
+  .step {
+    display: flex;
+    margin: 0.5rem 0;
+
+    &__number {
+      margin-right: 1rem;
+    }
+
+    &__content {
+      display: flex;
+      flex-direction: column;
+      &__description {
+        color: $gray-2;
+        text-align: left;
+        font-weight: normal;
+        font-size: $small;
+      }
+    }
+
+    &.current {
+      font-weight: bold;
+    }
+    &.done {
+      color: $black;
+    }
+    &.pending {
+      color: $gray-2;
+    }
+  }
+}
