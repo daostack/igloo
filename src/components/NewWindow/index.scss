@@ -1,0 +1,8 @@
+
+.new-window {
+  display: flex;
+  cursor: pointer;
+  &__label {
+    margin-right: 0.5rem;
+  }
+}

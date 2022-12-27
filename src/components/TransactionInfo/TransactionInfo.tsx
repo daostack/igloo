@@ -1,5 +1,6 @@
 import { ChainId, getExplorerTransactionLink, useEthers, useTransactions } from "@usedapp/core";
 import { t } from "i18next";
+import NewWindow from "../NewWindow/NewWindow";
 import "./index.scss";
 
 export default function TransactionInfo() {
@@ -11,7 +12,7 @@ export default function TransactionInfo() {
     <div className="transaction-info">
       <h6>{currentTransaction?.transactionName}</h6>
       {/* TODO: check why getExplorerTransactionLink is deprecated - getExplorerTransactionLink is deprecated, can call with Chain directly */}
-      {transactionHash && <button onClick={() => window.open(getExplorerTransactionLink(transactionHash, chainId as ChainId))}>{t("TransactionInfo.show-in-explorer")}</button>}
+      {transactionHash && <NewWindow link={getExplorerTransactionLink(transactionHash, chainId as ChainId)} label={t("TransactionInfo.show-in-explorer")!} />}
     </div>
   )
 }
