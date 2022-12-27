@@ -1,18 +1,18 @@
-import { ChainId, getExplorerTransactionLink, useEthers, useTransactions } from "@usedapp/core";
+import { useTransactions } from "@usedapp/core";
 import { t } from "i18next";
+import { CHAINS } from "../../config/constants";
+import { CHAIN_ID } from "../../config/env";
 import NewWindow from "../NewWindow/NewWindow";
 import "./index.scss";
 
 export default function TransactionInfo() {
   const currentTransaction = useTransactions().transactions.find(tx => !tx.receipt);
   const transactionHash = currentTransaction?.transaction.hash;
-  const { chainId } = useEthers();
 
   return (
     <div className="transaction-info">
       <h6>{currentTransaction?.transactionName}</h6>
-      {/* TODO: check why getExplorerTransactionLink is deprecated - getExplorerTransactionLink is deprecated, can call with Chain directly */}
-      {transactionHash && <NewWindow link={getExplorerTransactionLink(transactionHash, chainId as ChainId)} label={t("TransactionInfo.show-in-explorer")!} />}
+      {transactionHash && <NewWindow link={CHAINS[CHAIN_ID].getExplorerTransactionLink(transactionHash)} label={t("TransactionInfo.show-in-explorer")!} />}
     </div>
   )
 }

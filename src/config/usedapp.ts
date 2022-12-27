@@ -1,10 +1,10 @@
 import { getDefaultProvider } from "ethers";
 import { Config, Goerli, Mainnet } from "@usedapp/core";
 import { APIS } from "./env";
-import { NETWORKS } from "./constants";
+import { CHAINS } from "./constants";
 
 export const dappConfig: Config = {
-  networks: Object.values(NETWORKS),
+  networks: Object.values(CHAINS),
   readOnlyChainId: Mainnet.chainId,
   readOnlyUrls: {
     [Mainnet.chainId]: getDefaultProvider('mainnet', { alchemy: APIS[1] }),

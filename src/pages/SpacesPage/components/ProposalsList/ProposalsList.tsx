@@ -4,6 +4,7 @@ import { t } from "i18next";
 import { useState } from "react";
 import { useParams } from "react-router";
 import Tabs, { Tab } from "../../../../components/Tabs/Tabs";
+import { ApolloContext } from "../../../../config/constants";
 import { GET_SPACE_PROPOSALS } from "../../../../graphql/snapshot/queries";
 import { Proposal, ProposalState } from "../../../../interfaces/snapshot";
 import ProposalElement from "../ProposalElement/ProposalElement";
@@ -34,7 +35,8 @@ export default function ProposalsList() {
       {
         spaceId: spaceId,
         state: tab
-      }
+      },
+      context: { clientName: ApolloContext.Snapshot }
     });
 
   const proposals = proposalsData?.proposals?.map((proposal: Proposal, index) => <ProposalElement key={index} proposal={proposal} />)

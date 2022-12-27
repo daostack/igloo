@@ -13,6 +13,7 @@ import { useToggle } from "../../../../hooks/useToggle";
 import Loading from "../../../../components/Loading/Loading";
 import BackButton from "../../../../components/BackButton/BackButton";
 import Steps, { Step, StepState } from "../../../../components/Steps/Steps";
+import { ApolloContext } from "../../../../config/constants";
 import "./index.scss";
 
 const MOCK_STEPS_DATA: Step[] = [
@@ -46,13 +47,13 @@ export default function Proposal() {
   const [choice, setChoice] = useState<string>();
 
   const { data: { proposal } = {}, error: proposalError, loading: proposalLoading } = useQuery<{ proposal: IProposal }>(GET_PROPOSAL,
-    { variables: { proposalId: proposalId } });
+    { variables: { proposalId: proposalId }, context: { clientName: ApolloContext.Snapshot } });
 
   const { data: { vp } = {}, error: vpError, loading: vpLoading } = useQuery<{ vp: VotingPower }>(GET_VOTING_POWER,
-    { skip: !account, variables: { voter: account, space: spaceId, proposal: proposalId } });
+    { skip: !account, variables: { voter: account, space: spaceId, proposal: proposalId }, context: { clientName: ApolloContext.Snapshot } });
 
   const { data: { votes } = {}, error: votesError, loading: votesLoading, refetch: refetchVotes } = useQuery<{ votes: Votes[] }>(GET_VOTES,
-    { skip: !account || !proposal, variables: { space: proposal?.space.id, voter: account, proposal: proposal?.id } });
+    { skip: !account || !proposal, variables: { space: proposal?.space.id, voter: account, proposal: proposal?.id }, context: { clientName: ApolloContext.Snapshot } });
 
   useEffect(() => {
     // TODO: better handle the case no vote has been made
