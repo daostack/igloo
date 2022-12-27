@@ -1,6 +1,6 @@
 import { useCall, useCalls, useContractFunction } from "@usedapp/core";
 import { Contract } from "ethers";
-import { HATS_PROTOCOL } from "../../config/env";
+import { CHAIN_ID, HATS_PROTOCOL } from "../../config/env";
 import HatsProtocolAbi from "../../data/abis/hatsProtocol/hats-protocol.json";
 import { Hat } from "../../interfaces/hatsProtocol";
 
@@ -72,7 +72,7 @@ export function useViewHats(hatIds: string[]): (Hat | undefined)[] {
     args: [hatId]
   })) ?? []
 
-  const results = useCalls(hatIds ? calls : []) ?? [];
+  const results = useCalls(hatIds ? calls : [], { chainId: CHAIN_ID }) ?? [];
   results.forEach((result, index) => {
     if (result && result.error) {
       console.error(`Error calling viewHat on ${calls[index]?.contract.address}: ${result.error.message}`);
@@ -81,18 +81,18 @@ export function useViewHats(hatIds: string[]): (Hat | undefined)[] {
   return results.map(result => result?.value);
 }
 
-// export function useViewHat(hatId: string | undefined): Hat | undefined {
-//   const { value, error } = useCall(hatId && {
-//     contract: new Contract(HATS_PROTOCOL, HatsProtocolAbi),
-//     method: 'viewHat',
-//     args: [hatId]
-//   }) ?? {}
-//   if (error) {
-//     console.error(error.message);
-//     return undefined;
-//   }
-//   return value;
-// }
+export function useViewHat(hatId: string | undefined): Hat | undefined {
+  const { value, error } = useCall(hatId && {
+    contract: new Contract(HATS_PROTOCOL, HatsProtocolAbi),
+    method: 'viewHat',
+    args: [hatId]
+  }, { chainId: CHAIN_ID }) ?? {}
+  if (error) {
+    console.error(error.message);
+    return undefined;
+  }
+  return value;
+}
 
 export function useCreateHat() {
   return useContractFunction(new Contract(HATS_PROTOCOL, HatsProtocolAbi), "createHat", { transactionName: TransactionName.CreateHat });

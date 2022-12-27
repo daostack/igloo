@@ -1,5 +1,7 @@
 import { ChainId } from "@usedapp/core";
 
+export const CHAIN_ID: ChainId = process.env.REACT_APP_CHAIN_ID ? parseInt(process.env.REACT_APP_CHAIN_ID) : ChainId.Goerli;
+
 export const HATS_PROTOCOL = process.env.REACT_APP_HATS_PROTOCOL ?? "";
 
 export const ENDPOINTS = {

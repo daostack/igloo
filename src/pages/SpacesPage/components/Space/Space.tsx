@@ -23,7 +23,7 @@ export default function Space() {
           <span>About</span>
           <NavLink to={Routes.proposalsList}>Proposals</NavLink>
           <span>Delegations</span>
-          <span>Roles</span>
+          <NavLink to={Routes.roles}>Roles</NavLink>
         </div>
       </div>
 
