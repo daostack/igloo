@@ -17,7 +17,6 @@ export default function AdminPage() {
 
   return (
     <div className="admin-page">
-      <h2>ADMIN PAGE</h2>
       <h4>{protocolVersion}</h4>
       <Link to={Routes.createHat}>Create Hat</Link>
       <Link to={Routes.mintHat}>Mint Hat</Link>

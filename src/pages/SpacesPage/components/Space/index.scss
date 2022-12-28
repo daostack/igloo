@@ -8,7 +8,7 @@
     display: flex;
     flex-direction: column;
     background-color: $gray-3;
-    padding: 0.5rem;
+    @include element-padding;
     &__links {
       display: flex;
       flex-direction: column;
@@ -19,6 +19,10 @@
         }
       }
     }
+  }
+  &__outlet {
+    @include element-padding;
+    width: 100%;
   }
 }
 

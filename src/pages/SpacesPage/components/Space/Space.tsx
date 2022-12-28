@@ -23,16 +23,15 @@ export default function Space() {
       <div className="space__nav">
         <h4>{spaceData.space.name}</h4>
         <div className="space__nav__links">
-          {/* TODO: need to understand who can create a proposal for each space and manifest this in the UI */}
-          <NavLink to="create-proposal">{t("Space.create-proposal")}</NavLink>
           <span>About</span>
           <NavLink to={Routes.proposalsList}>Proposals</NavLink>
           <span>Delegations</span>
           <NavLink to={Routes.roles}>Roles</NavLink>
         </div>
       </div>
-
-      <Outlet />
+      <div className="space__outlet">
+        <Outlet />
+      </div>
     </div>
   )
 }

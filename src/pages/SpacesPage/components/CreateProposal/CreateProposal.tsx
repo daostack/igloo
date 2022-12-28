@@ -79,7 +79,9 @@ export default function CreateProposal() {
 
   return (
     <div className="create-proposal">
-      <BackButton segments={1} />
+      <div className="create-proposal__top">
+        <BackButton segments={1} />
+      </div>
       <form onSubmit={handleSubmit(create)} className="create-proposal__form">
         <h3>{t("CreateProposal.new-proposal")}</h3>
 

@@ -38,8 +38,10 @@
     "unknown-notification": "Unknown Notification"
   },
   "Space": {
-    "create-proposal": "Create Proposal",
     "no-proposals": "No Proposals"
+  },
+  "ProposalsList": {
+    "create-proposal": "Create Proposal"
   },
   "CreateProposal": {
     "create-success": "Your proposal was created successfully!",

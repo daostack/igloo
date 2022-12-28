@@ -3,10 +3,10 @@
 
 .role {
   @include content;
+  @include element-padding;
   display: flex;
   flex-direction: column;
   text-align: left;
-  padding: 0.5rem;
   box-sizing: border-box;
   &__top {
 

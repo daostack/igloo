@@ -2,6 +2,7 @@
 
 .spaces-page {
   @include content;
+  @include element-padding;
   &__spaces-container {
     display: flex;
     flex-direction: column;

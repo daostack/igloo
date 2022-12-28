@@ -2,6 +2,7 @@
 
 .discourse-page {
   @include content;
+  @include element-padding;
   display: flex;
   flex-direction: column;
 }

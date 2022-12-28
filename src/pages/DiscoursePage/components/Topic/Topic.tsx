@@ -7,6 +7,7 @@ import { Topic as ITopic } from "../../../../interfaces/discourse";
 import { Routes } from "../../../../navigation/constants";
 import { formatDate } from "../../../../utils/utils";
 import Posts from "../Posts/Posts";
+import "./index.scss";
 
 export default function Topic() {
   const { topicId } = useParams();
@@ -29,7 +30,7 @@ export default function Topic() {
   if (status === AsyncStatus.Pending) return <span>Loading...</span>;
 
   return (
-    <div>
+    <div className="topic">
       <h2>{topic?.title}</h2>
       <>{ReactHtmlParser(topic?.post_stream.posts[0].cooked)}</>
       <button onClick={() => createSnapshotProposal(topic!)}>Create a proposal on Snapshot from this topic</button>

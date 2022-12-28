@@ -20,6 +20,18 @@
   }
 }
 
+@mixin element-padding {
+  box-sizing: border-box;
+
+  @media only screen and (max-width: $mobile-limit) {
+    padding: 0.5rem;
+  }
+
+  @media only screen and (min-width: $mobile-limit) {
+    padding: 1rem;
+  }
+}
+
 @mixin modal {
   @media only screen and (max-width: $mobile-limit) {
     height: 100%;

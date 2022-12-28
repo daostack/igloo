@@ -3,17 +3,10 @@
 
 .create-proposal {
   @include content;
+  @include element-padding;
   &__form {
     @include form;
     max-width: 500px;
     margin: auto;
-  }
-}
-
-@media only screen and (max-width: $mobile-limit) {
-  .create-proposal {
-    &__form {
-      margin: 0 1rem;
-    }
   }
 }

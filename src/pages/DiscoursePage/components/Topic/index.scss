@@ -1,0 +1,6 @@
+@import "../../../../styles/global.scss";
+
+.topic {
+  @include content;
+  @include element-padding;
+}
