@@ -1,7 +1,7 @@
 import { useQuery } from "@apollo/client";
 import { t } from "i18next";
 import { ApolloContext } from "../../config/constants";
-import { GET_SPACES } from "../../graphql/snapshot/queries";
+import { GET_SPACES } from "../../graphql/snapshot/snapshotJS";
 import { Space } from "../../interfaces/snapshot";
 import SpaceElement from "./components/SpaceElement/SpaceElement";
 import "./index.scss";
@@ -17,7 +17,7 @@ export default function SpacesPage() {
         skip: SKIP,
         orderBy: "created",
       },
-      context: { clientName: ApolloContext.Snapshot }
+      context: { clientName: ApolloContext.SnapshotJS }
     });
 
   if (error) return <span>{t("Shared.data-load-failed")}</span>;

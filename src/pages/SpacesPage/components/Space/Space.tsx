@@ -2,7 +2,7 @@ import { useQuery } from "@apollo/client";
 import { Outlet, useParams } from "react-router"
 import { NavLink } from "react-router-dom";
 import { t } from "i18next";
-import { GET_SPACE } from "../../../../graphql/snapshot/queries";
+import { GET_SPACE } from "../../../../graphql/snapshot/snapshotJS";
 import { Routes } from "../../../../navigation/constants";
 import { ApolloContext } from "../../../../config/constants";
 import "./index.scss";
@@ -12,7 +12,7 @@ export default function Space() {
   const { data: spaceData, error: spaceError, loading: spaceLoading } = useQuery(GET_SPACE,
     {
       variables: { spaceId: spaceId },
-      context: { clientName: ApolloContext.Snapshot }
+      context: { clientName: ApolloContext.SnapshotJS }
     });
 
   if (spaceError) return <span>{t("Shared.data-load-failed")}</span>

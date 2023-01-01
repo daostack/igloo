@@ -5,7 +5,7 @@ import { t } from "i18next";
 import { useParams } from "react-router";
 import { Web3Provider } from "@ethersproject/providers";
 import { snapshotClient } from "../../../../config/snapshot";
-import { GET_PROPOSAL, GET_VOTES, GET_VOTING_POWER } from "../../../../graphql/snapshot/queries";
+import { GET_PROPOSAL, GET_VOTES, GET_VOTING_POWER } from "../../../../graphql/snapshot/snapshotJS";
 import { Proposal as IProposal, ProposalState, SnapshotError, Votes, VotingPower } from "../../../../interfaces/snapshot";
 import { useToast } from "../../../../components/Toast";
 import { fromUnixTime, getAppName } from "../../../../utils/utils";
@@ -47,13 +47,13 @@ export default function Proposal() {
   const [choice, setChoice] = useState<string>();
 
   const { data: { proposal } = {}, error: proposalError, loading: proposalLoading } = useQuery<{ proposal: IProposal }>(GET_PROPOSAL,
-    { variables: { proposalId: proposalId }, context: { clientName: ApolloContext.Snapshot } });
+    { variables: { proposalId: proposalId }, context: { clientName: ApolloContext.SnapshotJS } });
 
   const { data: { vp } = {}, error: vpError, loading: vpLoading } = useQuery<{ vp: VotingPower }>(GET_VOTING_POWER,
-    { skip: !account, variables: { voter: account, space: spaceId, proposal: proposalId }, context: { clientName: ApolloContext.Snapshot } });
+    { skip: !account, variables: { voter: account, space: spaceId, proposal: proposalId }, context: { clientName: ApolloContext.SnapshotJS } });
 
   const { data: { votes } = {}, error: votesError, loading: votesLoading, refetch: refetchVotes } = useQuery<{ votes: Votes[] }>(GET_VOTES,
-    { skip: !account || !proposal, variables: { space: proposal?.space.id, voter: account, proposal: proposal?.id }, context: { clientName: ApolloContext.Snapshot } });
+    { skip: !account || !proposal, variables: { space: proposal?.space.id, voter: account, proposal: proposal?.id }, context: { clientName: ApolloContext.SnapshotJS } });
 
   useEffect(() => {
     // TODO: better handle the case no vote has been made

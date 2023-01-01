@@ -1,12 +1,16 @@
 import { ApolloClient, ApolloLink, HttpLink, InMemoryCache } from "@apollo/client";
-import { ApolloContext, IGLOO_SUBGRAPH, SNAPSHOT_URI_TESTNET } from "./constants";
+import { ApolloContext, IGLOO_SUBGRAPH, SNAPSHOT_SUBGRAPH, SNAPSHOT_JS_URI_TESTNET } from "./constants";
 
 const iglooSubgraphLink = new HttpLink({
   uri: IGLOO_SUBGRAPH
 });
 
-const snapshotLink = new HttpLink({
-  uri: `${SNAPSHOT_URI_TESTNET}/graphql`
+const snapshotJSLink = new HttpLink({
+  uri: `${SNAPSHOT_JS_URI_TESTNET}/graphql`
+});
+
+const snapshotSubgraphLink = new HttpLink({
+  uri: SNAPSHOT_SUBGRAPH
 });
 
 // TODO: better merge function with offset.
@@ -25,5 +29,12 @@ export const apolloClient = new ApolloClient({
       }
     }
   }),
-  link: ApolloLink.split(operation => operation.getContext().clientName === ApolloContext.IglooSubgraph, iglooSubgraphLink, snapshotLink)
+  link: ApolloLink.split(operation =>
+    operation.getContext().clientName === ApolloContext.IglooSubgraph,
+    iglooSubgraphLink,
+    ApolloLink.split(operation =>
+      operation.getContext().clientName === ApolloContext.SnapshotJS,
+      snapshotJSLink,
+      snapshotSubgraphLink
+    ))
 });

@@ -6,7 +6,7 @@ import { generatePath, useParams } from "react-router";
 import { NavLink } from "react-router-dom";
 import Tabs, { Tab } from "../../../../components/Tabs/Tabs";
 import { ApolloContext } from "../../../../config/constants";
-import { GET_SPACE_PROPOSALS } from "../../../../graphql/snapshot/queries";
+import { GET_SPACE_PROPOSALS } from "../../../../graphql/snapshot/snapshotJS";
 import { Proposal, ProposalState } from "../../../../interfaces/snapshot";
 import { Routes } from "../../../../navigation/constants";
 import ProposalElement from "../ProposalElement/ProposalElement";
@@ -38,7 +38,7 @@ export default function ProposalsList() {
         spaceId: spaceId,
         state: tab
       },
-      context: { clientName: ApolloContext.Snapshot }
+      context: { clientName: ApolloContext.SnapshotJS }
     });
 
   const proposals = proposalsData?.proposals?.map((proposal: Proposal, index) => <ProposalElement key={index} proposal={proposal} />)
