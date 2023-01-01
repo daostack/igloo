@@ -25,7 +25,7 @@ export default function Space() {
         <div className="space__nav__links">
           <span>About</span>
           <NavLink to={Routes.proposalsList}>Proposals</NavLink>
-          <span>Delegations</span>
+          <NavLink to={Routes.delegations}>Delegations</NavLink>
           <NavLink to={Routes.roles}>Roles</NavLink>
         </div>
       </div>

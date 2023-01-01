@@ -8,6 +8,7 @@ import Post from '../pages/DiscoursePage/components/Topic/Topic';
 import DiscoursePage from '../pages/DiscoursePage/DiscoursePage';
 import ErrorPage from '../pages/ErrorPage/ErrorPage';
 import CreateProposal from '../pages/SpacesPage/components/CreateProposal/CreateProposal';
+import DelegationsList from '../pages/SpacesPage/components/DelegationsList/DelegationsList';
 import Proposal from '../pages/SpacesPage/components/Proposal/Proposal';
 import ProposalsList from '../pages/SpacesPage/components/ProposalsList/ProposalsList';
 import Role from '../pages/SpacesPage/components/Role/Role';
@@ -51,6 +52,10 @@ export const router = createBrowserRouter([
           {
             path: Routes.roles,
             element: <RolesList />
+          },
+          {
+            path: Routes.delegations,
+            element: <DelegationsList />
           }
         ]
       },

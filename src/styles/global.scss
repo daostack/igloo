@@ -33,6 +33,10 @@
 }
 
 @mixin modal {
+  @media only screen and (min-width: $mobile-limit) {
+    top: 50%;
+    transform: translateY(-50%);
+  }
   @media only screen and (max-width: $mobile-limit) {
     height: 100%;
     max-width: unset;
@@ -49,6 +53,6 @@
     border: 1px solid $gray-2;
   }
   textarea {
-    resize:  none;
+    resize: none;
   }
 }

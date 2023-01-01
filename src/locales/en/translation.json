@@ -60,5 +60,8 @@
     "vote-ended": "Voting ended",
     "vote-begins": "Voting begins",
     "your-vp": "Your voting power:"
+  },
+  "DelegationsList": {
+    "apply": "Apply me as delegate..."
   }
 }

@@ -1,19 +1,20 @@
-@import "../../../../styles/global.scss";
 @import "../../../../styles/colors.scss";
+@import "../../../../styles/constants.scss";
 
-.proposal-element {
+.delegation-element {
   display: flex;
   flex-direction: column;
   border: 1px solid $gray-2;
-  width: 500px;
   margin: 0.5rem 0;
-  text-align: left;
   padding: 0.5rem;
+  width: 500px;
   box-sizing: border-box;
+  background-color: $gray-4;
+  cursor: pointer;
 }
 
 @media only screen and (max-width: $mobile-limit) {
-  .proposal-element {
+  .delegation-element {
     width: 100%;
   }
 }
