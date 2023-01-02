@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@igloo/steps": "^0.0.1",
     "@apollo/client": "^3.7.1",
     "@snapshot-labs/snapshot.js": "^0.4.52",
     "@testing-library/jest-dom": "^5.16.5",

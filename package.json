@@ -7,7 +7,8 @@
     "build": "yarn workspace @igloo/core build"
   },
   "workspaces": [
-    "packages/core"
+    "core",
+    "frontend"
   ],
   "packageManager": "yarn@3.2.0",
   "devDependencies": {

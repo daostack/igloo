@@ -1,0 +1,70 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "hardhat test",
+      "type": "node",
+      "request": "launch",
+      "skipFiles": ["<node_internals>/**"],
+      "runtimeExecutable": "${workspaceFolder}/packages/contracts/node_modules/.bin/hardhat",
+      "args": ["test", "--network", "localhost"],
+      "cwd": "${workspaceFolder}/packages/contracts"
+    },
+    {
+      "name": "hardhat deploy",
+      "type": "node",
+      "request": "launch",
+      "skipFiles": ["<node_internals>/**"],
+      "runtimeExecutable": "${workspaceFolder}/packages/contracts/node_modules/.bin/hardhat",
+      "args": [
+        "deploy",
+        "--export-all",
+        "./generated/hardhat_contracts.json",
+        "--network",
+        "goerli"
+      ],
+      "cwd": "${workspaceFolder}/packages/contracts"
+    },
+    {
+      "name": "oracle",
+      "type": "node",
+      "request": "launch",
+      "skipFiles": ["<node_internals>/**"],
+      "cwd": "${workspaceFolder}/apps/oracle",
+      "runtimeExecutable": "${workspaceFolder}/apps/oracle/node_modules/.bin/ts-node",
+      "args": ["src/server.ts"],
+      "outputCapture": "std",
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "oracle-test",
+      "type": "node",
+      "request": "launch",
+      "skipFiles": ["<node_internals>/**"],
+      "cwd": "${workspaceFolder}/apps/oracle",
+      "runtimeExecutable": "${workspaceFolder}/apps/oracle/node_modules/.bin/jest",
+      "args": ["test/main.test.ts"],
+      "outputCapture": "std",
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "test core",
+      "type": "node",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/packages/core/test",
+      "args": ["test.js"],
+      "outputCapture": "std"
+    },
+    {
+      "name": "test rulesets",
+      "type": "node",
+      "request": "launch",
+      "skipFiles": ["<node_internals>/**"],
+      "cwd": "${workspaceFolder}/packages/rulesets",
+      "runtimeExecutable": "${workspaceFolder}/packages/rulesets/node_modules/.bin/jest",
+      "args": [""],
+      "outputCapture": "std",
+      "console": "integratedTerminal"
+    }
+  ]
+}
