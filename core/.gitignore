@@ -1,0 +1,6 @@
+/test/.env
+/test/test.js
+/test/test.js.map
+.env
+/node_modules
+/dist
