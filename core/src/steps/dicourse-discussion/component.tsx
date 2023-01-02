@@ -1,6 +1,14 @@
-import { StepProps } from "../../types"
-import { Params } from "./step"
+import { StepProps } from '../../types';
 
-export const StepComponent = (props: StepProps): JSX.Element => {
-  return (<div>Discussion {props.params.discussionId}</div>)
-}
+import { Params } from './step';
+
+export const StepComponent = (props: StepProps<Params>): JSX.Element => {
+  return (
+    <div>
+      <h2>
+        Discourse Discussion{' '}
+        {props && props.params ? props.params.discussionId : 'null'}
+      </h2>
+    </div>
+  );
+};

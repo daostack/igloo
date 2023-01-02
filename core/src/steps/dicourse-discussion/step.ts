@@ -1,5 +1,6 @@
-import { IWorld, ProgressInfo, Step, TransitionFunc } from "../../types";
-import { StepComponent } from "./component";
+import { IWorld, ProgressInfo, Step, TransitionFunc } from '../../types';
+
+import { StepComponent } from './component';
 
 export interface Params {
   discussionId: string;
@@ -7,27 +8,30 @@ export interface Params {
   createDate: number;
 }
 
-const progress: ProgressInfo<Params> = (params: Params) =>  {
+const progress: ProgressInfo<Params> = (params: Params) => {
   const prettyDuration = params.duration;
   return {
     title: 'Discuss',
-    summary: `Hold a ${prettyDuration} discussion on discourse`
-  }
-}
+    summary: `Hold a ${prettyDuration} discussion on discourse`,
+  };
+};
 
 const transition: TransitionFunc = async (world: IWorld, params: Params) => {
   const thread = await world.discourse.getThread(params.discussionId);
-  
-  if(thread.length > 0 && world.time.now() > params.createDate + params.duration) {
-    return {result: true};
+
+  if (
+    thread.length > 0 &&
+    world.time.now() > params.createDate + params.duration
+  ) {
+    return { result: true };
   }
 
-  return {result: false};
-}
+  return { result: false };
+};
 
-export const step: Step = {
+export const step: Step<Params> = {
   id: 'DISCOURSE_DISCUSSION',
   transition,
   progress,
-  component: StepComponent
-}
+  component: StepComponent,
+};
