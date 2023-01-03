@@ -7,6 +7,8 @@
     "prisma-migrate": "prisma migrate dev --name init --schema ./src/prisma/schema.prisma",
     "prisma-reset": "rm -rf ./src/prisma/migrations && cd ./src &&  prisma migrate reset --force --preview-feature && prisma migrate dev --name init && cd ..",
     "prisma-generate": "prisma generate --schema=./src/prisma/schema.prisma",
+    "prisma-migrate-test": "POSTGRES_URL=postgresql://postgres:postgres@localhost:5442/igloo-test?schema=public prisma migrate dev --name init --schema  ./src/prisma/schema.prisma",
+    "prisma-reset-test": "rm -rf ./src/prisma/migrations && POSTGRES_URL=postgresql://postgres:postgres@localhost:5442/igloo-test?schema=public prisma migrate reset --force --preview-feature --schema  ./src/prisma/schema.prisma && yarn prisma-migrate-test",
     "test": "POSTGRES_URL=postgresql://postgres:postgres@localhost:5442/igloo-test?schema=public jest --runInBand test/main.test.ts",
     "reboot": "yarn prisma-reset && yarn start",
     "start": "nodemon src/server.ts",

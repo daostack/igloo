@@ -1,3 +1,4 @@
+import { StepTypeId } from '../../proposal.types';
 import { IWorld, ProgressInfo, Step, TransitionFunc } from '../../types';
 
 import { StepComponent } from './component';
@@ -30,7 +31,7 @@ const transition: TransitionFunc = async (world: IWorld, params: Params) => {
 };
 
 export const step: Step<Params> = {
-  id: 'DISCOURSE_DISCUSSION',
+  id: StepTypeId.Discourse,
   transition,
   progress,
   component: StepComponent,

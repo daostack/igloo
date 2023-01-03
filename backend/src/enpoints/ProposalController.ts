@@ -24,8 +24,11 @@ export class ProposalController extends Controller {
     }
 
     const result = await this.manager.services.proposal.create(
-      request.body.details as ProposalCreate
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      request.body.details as ProposalCreate,
+      loggedUser
     );
+
     return result;
   }
 
@@ -36,7 +39,7 @@ export class ProposalController extends Controller {
     _loggedUser: string | undefined
   ): Promise<ProposalRead> {
     const proposal = await this.manager.services.proposal.get(
-      request.params.id
+      +request.params.id
     );
     return proposal;
   }

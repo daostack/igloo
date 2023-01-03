@@ -2,7 +2,12 @@ import {
   ProposalCreateResponse,
   ProposalRead,
   ProposalCreate,
+  proposalTypes,
+  ProposalTypeId,
+  StepTypeId,
+  stepsMap,
 } from '@igloo/core';
+import { Prisma } from '@prisma/client';
 
 import { ProposalRepository } from '../repositories/ProposalRepository';
 
@@ -27,15 +32,52 @@ export class ProposalService {
     protected userService: UserService
   ) {}
 
-  async get(uri: string): Promise<ProposalRead | undefined> {
-    const proposal = await this.proposalsRepo.get(uri);
+  async get(id: number): Promise<ProposalRead | undefined> {
+    const proposal = await this.proposalsRepo.get(id);
     return {
-      ...proposal,
+      id: proposal.id,
+      title: proposal.title,
+      description: proposal.description,
+      type: proposal.type as ProposalTypeId,
     };
   }
 
-  async create(data: ProposalCreate): Promise<ProposalCreateResponse> {
-    const proposal = await this.proposalsRepo.create(data);
+  async create(
+    data: ProposalCreate,
+    by: string
+  ): Promise<ProposalCreateResponse> {
+    const proposalType = proposalTypes.get(data.type);
+
+    const createInput: Prisma.ProposalCreateInput = {
+      step: 0,
+      type: ProposalTypeId.DiscourseAndSnapshot,
+      title: data.title,
+      description: data.description,
+      creator: {
+        connectOrCreate: {
+          where: {
+            address: by,
+          },
+          create: {
+            address: by,
+          },
+        },
+      },
+      steps: {
+        createMany: {
+          data: proposalType.stepIds.map((stepId, ix) => {
+            return {
+              order: ix,
+              type: stepId,
+              // The proposal create params are the first step parameters
+              params: ix === 0 ? JSON.stringify(data.params) : undefined,
+            };
+          }),
+        },
+      },
+    };
+
+    const proposal = await this.proposalsRepo.create(createInput);
     return {
       id: proposal.id,
     };

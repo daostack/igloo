@@ -9,7 +9,7 @@ export class ProposalRepository {
     });
   }
 
-  async get(id: string): Promise<Proposal> {
+  async get(id: number): Promise<Proposal> {
     return this.client.proposal.findUnique({ where: { id } });
   }
 }

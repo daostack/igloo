@@ -34,8 +34,6 @@ export class ServiceManager {
   constructor(config: ExecutionConfig) {
     const url = process.env.POSTGRES_URL;
 
-    console.log({ url });
-
     this.client = new PrismaClient({
       log: LOG as any,
       datasources: { db: { url } },
@@ -66,17 +64,9 @@ export class ServiceManager {
   async resetDB(): Promise<void> {
     await this.client.$executeRaw`
       TRUNCATE 
-        public."ApprovedUsers", 
-        public."AssetPrice", 
-        public."BalanceLeaf", 
-        public."Campaign", 
-        public."CampaignFunder", 
-        public."CampaignIndex",
-        public."CampaignRoot",
-        public."CrossVerification",
-        public."FundEvent",
-        public."Share",
-        public."User";
+        public."Proposal", 
+        public."ProposalStep", 
+        public."User"
     `;
   }
 }

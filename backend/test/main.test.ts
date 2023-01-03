@@ -1,4 +1,8 @@
-import { DISCOURSE_DISCUSSION_TYPES, ProposalCreate } from '@igloo/core';
+import {
+  DISCOURSE_DISCUSSION_TYPES,
+  ProposalCreate,
+  ProposalTypeId,
+} from '@igloo/core';
 
 import { ProposalController } from '../src/enpoints/ProposalController';
 import { ServiceManager } from '../src/service.manager';
@@ -64,6 +68,7 @@ describe('start', () => {
       (manager.services.time as any).set(simDate);
 
       const details: ProposalCreate<DISCOURSE_DISCUSSION_TYPES.Params> = {
+        type: ProposalTypeId.DiscourseAndSnapshot,
         title: 'test',
         description: 'test description',
         params: {
@@ -71,7 +76,6 @@ describe('start', () => {
           createDate: 0,
           duration: 10,
         },
-        type: 'DISCOURSE_DISCUSSION',
       };
       const request: any = {
         body: {
@@ -106,7 +110,7 @@ describe('start', () => {
         creator
       );
 
-      expect(proposal.id).toHaveLength(61);
+      expect(typeof proposal.id).toBe('number');
     });
   });
 });
