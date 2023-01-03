@@ -4,10 +4,11 @@ import {
   ProposalCreate,
   proposalTypes,
   ProposalTypeId,
-  StepTypeId,
+  TransitionExecution,
   stepsMap,
+  IWorld,
 } from '@igloo/core';
-import { Prisma } from '@prisma/client';
+import { Prisma, Proposal, ProposalStep } from '@prisma/client';
 
 import { ProposalRepository } from '../repositories/ProposalRepository';
 
@@ -29,10 +30,11 @@ export class ProposalService {
   constructor(
     protected proposalsRepo: ProposalRepository,
     protected timeService: TimeService,
-    protected userService: UserService
+    protected userService: UserService,
+    protected world: IWorld
   ) {}
 
-  async get(id: number): Promise<ProposalRead | undefined> {
+  async getDto(id: number): Promise<ProposalRead | undefined> {
     const proposal = await this.proposalsRepo.get(id);
     return {
       id: proposal.id,
@@ -40,6 +42,10 @@ export class ProposalService {
       description: proposal.description,
       type: proposal.type as ProposalTypeId,
     };
+  }
+
+  async get(id: number): Promise<Proposal> {
+    return this.proposalsRepo.get(id);
   }
 
   async create(
@@ -81,5 +87,33 @@ export class ProposalService {
     return {
       id: proposal.id,
     };
+  }
+
+  async findPendingTransition(now: number): Promise<number[]> {
+    return this.proposalsRepo.findNextTransitionLTE(now);
+  }
+
+  /** get the current proposal step */
+  async getProposalStep(id: number): Promise<ProposalStep> {
+    const proposal = await this.get(id);
+    return this.proposalsRepo.getProposalStep(id, proposal.step);
+  }
+
+  async checkTransition(id: number): Promise<TransitionExecution> {
+    const step = await this.getProposalStep(id);
+    if (step.params === undefined) {
+      throw new Error(
+        `Step parameters undefined while checking for transition`
+      );
+    }
+
+    const stepSpec = stepsMap.get(step.type);
+    const result = await stepSpec.transition(this.world, step.params);
+
+    if (result.executed && result.transition) {
+      await this.proposalsRepo.setStep(id, step.order + 1);
+    }
+
+    return result;
   }
 }

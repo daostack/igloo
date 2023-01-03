@@ -129,59 +129,60 @@ describe('start', () => {
 
       /* eslint-enable */
     });
-  }),
-    describe('create proposal', () => {
-      const simDate = 1650000000;
-      let create;
-      let id: string;
+  });
 
-      beforeAll(async () => {
-        /* eslint-disable */
-        (manager.services.time as any).set(simDate);
+  describe('create proposal', () => {
+    const simDate = 1650000000;
+    let create;
+    let id: string;
 
-        const details: ProposalCreate<DISCOURSE_DISCUSSION_TYPES.Params> = {
-          type: ProposalTypeId.DiscourseAndSnapshot,
-          title: 'test',
-          description: 'test description',
-          params: {
-            discussionId: '',
-            createDate: 0,
-            duration: 10,
-          },
-        };
-        const request: any = {
-          body: {
-            details,
-          },
-        };
-        create = await proposalController.create(
-          request,
-          {} as any,
-          () => {},
-          creator
-        );
+    beforeAll(async () => {
+      /* eslint-disable */
+      (manager.services.time as any).set(simDate);
 
-        id = create.id;
-        /* eslint-enable */
-      });
+      const details: ProposalCreate<DISCOURSE_DISCUSSION_TYPES.Params> = {
+        type: ProposalTypeId.DiscourseAndSnapshot,
+        title: 'test',
+        description: 'test description',
+        params: {
+          discussionId: '',
+          createDate: 0,
+          duration: 10,
+        },
+      };
+      const request: any = {
+        body: {
+          details,
+        },
+      };
+      create = await proposalController.create(
+        request,
+        {} as any,
+        () => {},
+        creator
+      );
 
-      test('is created', async () => {
-        const request: any = {
-          params: {
-            id,
-          },
-        };
-        const proposal = await proposalController.get(
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-          request,
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-          {} as any,
-          // eslint-disable-next-line @typescript-eslint/no-empty-function
-          () => {},
-          creator
-        );
-
-        expect(typeof proposal.id).toBe('number');
-      });
+      id = create.id;
+      /* eslint-enable */
     });
+
+    test('is created', async () => {
+      const request: any = {
+        params: {
+          id,
+        },
+      };
+      const proposal = await proposalController.get(
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+        request,
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+        {} as any,
+        // eslint-disable-next-line @typescript-eslint/no-empty-function
+        () => {},
+        creator
+      );
+
+      expect(typeof proposal.id).toBe('number');
+    });
+  });
 });

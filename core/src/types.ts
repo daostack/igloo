@@ -29,7 +29,8 @@ export type ProgressInfo<P> = (params: P) => {
 };
 
 export interface TransitionExecution {
-  result: boolean;
+  executed: boolean;
+  transition?: boolean;
 }
 
 export type TransitionFunc<P = any> = (

@@ -12,7 +12,7 @@ export interface ExecutionConfig {
 
 export class TransitionService {
   transitionCicle: NodeJS.Timer;
-  transitioning: Map<string, Promise<void>> = new Map();
+  transitioning: Map<number, Promise<void>> = new Map();
 
   constructor(
     protected services: Services,
@@ -29,7 +29,7 @@ export class TransitionService {
   async checkTransition(): Promise<void> {
     const now = this.services.time.now();
 
-    const incoming = await this.services.proposals.findPendingTransition(
+    const incoming = await this.services.proposal.findPendingTransition(
       now + this.config.transition.period
     );
 
@@ -42,43 +42,43 @@ export class TransitionService {
     );
   }
 
-  async scheduleTransition(id: string, now: number): Promise<void> {}
+  async scheduleTransition(id: number, now: number): Promise<void> {}
 
   /** single point from which a campaign executed is triggered */
-  async transition(uri: string, now: number): Promise<void> {
+  async transition(id: number, now: number): Promise<void> {
     /** reentrancy protection */
-    const transitioning = this.transitioning.get(uri);
+    const transitioning = this.transitioning.get(id);
     if (transitioning !== undefined) {
-      appLogger.info(`transitioning reentered ${uri}`);
+      appLogger.info(`transitioning reentered ${id}`);
       return transitioning;
     }
 
-    const _execute = (async (): Promise<void> => {
-      const campaign = await this.services.campaign.get(uri);
+    const check = (async (): Promise<void> => {
+      const proposal = await this.services.proposal.get(id);
 
-      if (campaign.nextExecDate >= now) {
+      if (proposal.nextTransitionCheck >= now) {
         /** campaign not ready to be executed */
         appLogger.info(
-          `campaign not ready to be executed now: ${now}, execData: 
-          ${campaign.nextExecDate}`
+          `proposal not ready to check transition: ${now}, execData: 
+          ${proposal.nextTransitionCheck}`
         );
         return;
       }
 
       /** shares are computed */
-      appLogger.info(`Executing ${uri}`);
+      appLogger.info(`Checking transition ${id}`);
 
-      await this.services.campaign.runCampaign(uri, now);
+      await this.services.proposal.checkTransition(id);
 
-      appLogger.info(`Executed ${uri}`);
+      appLogger.info(`Checking transition ${id}`);
     })();
 
-    this.transitioning.set(uri, _execute);
+    this.transitioning.set(id, check);
     try {
-      await _execute;
-      this.transitioning.delete(uri);
+      await check;
+      this.transitioning.delete(id);
     } catch (e) {
-      this.transitioning.delete(uri);
+      this.transitioning.delete(id);
     }
   }
 }

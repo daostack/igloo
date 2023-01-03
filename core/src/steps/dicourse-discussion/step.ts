@@ -24,10 +24,10 @@ const transition: TransitionFunc = async (world: IWorld, params: Params) => {
     thread.length > 0 &&
     world.time.now() > params.createDate + params.duration
   ) {
-    return { result: true };
+    return { executed: true, transition: true };
   }
 
-  return { result: false };
+  return { executed: true, transition: false };
 };
 
 export const step: Step<Params> = {

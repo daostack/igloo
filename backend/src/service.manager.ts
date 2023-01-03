@@ -49,7 +49,8 @@ export class ServiceManager {
     this.proposalService = new ProposalService(
       this.proposalRepo,
       this.timeService,
-      this.userService
+      this.userService,
+      this.world
     );
 
     this.services = {
