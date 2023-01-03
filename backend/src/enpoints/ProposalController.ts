@@ -38,7 +38,7 @@ export class ProposalController extends Controller {
     _next: NextFunction,
     _loggedUser: string | undefined
   ): Promise<ProposalRead> {
-    const proposal = await this.manager.services.proposal.get(
+    const proposal = await this.manager.services.proposal.getDto(
       +request.params.id
     );
     return proposal;

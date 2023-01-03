@@ -1,10 +1,15 @@
-import { stepsMap, DISCOURSE_DISCUSSION_TYPES, Step } from "@igloo/core";
+import {
+  stepsMap,
+  DISCOURSE_DISCUSSION_TYPES,
+  Step,
+  StepTypeId,
+} from "@igloo/core";
 import React, { useState } from "react";
 import "./App.css";
 
 function App() {
   const [selectedStepId, setSelectedStepId] = useState<string>(
-    "DISCOURSE_DISCUSSION"
+    StepTypeId.Discourse
   );
   const step = stepsMap.get(
     selectedStepId

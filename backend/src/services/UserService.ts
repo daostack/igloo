@@ -3,15 +3,11 @@ import { Prisma, User } from '@prisma/client';
 
 import { UserRepository } from '../repositories/UserRepository';
 
-import { VerificationService } from './verification/VerificationService';
-
 export interface UserCreateDetails {
   address: string;
 }
 
 export class UserService {
-  private verifications: VerificationService;
-
   constructor(protected userRepo: UserRepository) {}
 
   async exist(address: string): Promise<boolean> {

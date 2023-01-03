@@ -4,6 +4,7 @@
   "license": "MIT",
   "private": true,
   "scripts": {
+    "up": "sudo docker-compose up",
     "prisma-migrate": "prisma migrate dev --name init --schema ./src/prisma/schema.prisma",
     "prisma-reset": "rm -rf ./src/prisma/migrations && cd ./src &&  prisma migrate reset --force --preview-feature && prisma migrate dev --name init && cd ..",
     "prisma-generate": "prisma generate --schema=./src/prisma/schema.prisma",
