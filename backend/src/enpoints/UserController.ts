@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import { generateNonce, SiweMessage } from 'siwe';
-import { LoggedUserDetails, Verification } from '@commonvalue/core';
+import { LoggedUserRead } from '@igloo/core';
 
 import { ServiceManager } from '../service.manager';
 
@@ -11,22 +11,19 @@ export class UserController extends Controller {
     super(manager);
   }
 
-  /** */
-  async me(
+  me(
     request: Request,
     _response: Response,
     _next: NextFunction,
-    loggedUser: string | undefined
-  ): Promise<LoggedUserDetails | undefined> {
+    loggedUser?: string
+  ): Promise<LoggedUserRead | undefined> {
     /* eslint-disable */
     if (!(request.session as any).siwe) {
       return undefined;
     }
 
+    return loggedUser ? this.manager.services.user.get(loggedUser) : undefined;
     /* eslint-enable */
-    return loggedUser
-      ? this.manager.services.user.getVerified(loggedUser)
-      : undefined;
   }
 
   nonce(
@@ -44,7 +41,7 @@ export class UserController extends Controller {
     request: Request,
     _response: Response,
     _next: NextFunction
-  ): Promise<{ valid: boolean; user?: LoggedUserDetails }> {
+  ): Promise<{ valid: boolean; user?: LoggedUserRead }> {
     try {
       /* eslint-disable */
       const reqMessage = request.body?.message as string | undefined;
@@ -76,7 +73,7 @@ export class UserController extends Controller {
 
       return {
         valid: true,
-        user: await this.manager.services.user.getVerified(fields.address),
+        user: await this.manager.services.user.get(fields.address),
       };
     } catch (e) {
       (request.session as any).siwe = null;
@@ -94,17 +91,5 @@ export class UserController extends Controller {
       (request.session as any).destroy();
     }
     /* eslint-enable */
-  }
-
-  checkVerification(
-    request: Request,
-    _response: Response,
-    _next: NextFunction,
-    loggedUser: string
-  ): Promise<Verification | undefined> {
-    return this.manager.services.user.checkVerification(
-      request.body.handle as string,
-      loggedUser
-    );
   }
 }

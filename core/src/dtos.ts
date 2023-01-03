@@ -15,3 +15,7 @@ export interface ProposalCreateResponse {
 export interface ProposalRead<P = any> extends ProposalCreate<P> {
   id: number;
 }
+
+export interface LoggedUserRead {
+  address: string;
+}
