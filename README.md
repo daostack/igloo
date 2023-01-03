@@ -29,5 +29,5 @@ yarn migrate
 Then you can run the frontend and the backend with
 
 ```
-yarn start
+yarn start-test-core
 ```
