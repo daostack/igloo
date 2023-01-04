@@ -1,0 +1,72 @@
+{
+  "name": "@igloo/frontend",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@igloo/core": "^0.0.1",
+    "@apollo/client": "^3.7.1",
+    "@snapshot-labs/snapshot.js": "^0.4.52",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "@usedapp/core": "^1.2.2",
+    "@walletconnect/web3-provider": "^1.8.0",
+    "assert": "^2.0.0",
+    "axios": "^1.2.1",
+    "buffer": "^6.0.3",
+    "classnames": "^2.3.2",
+    "ethers": "^5.7.2",
+    "graphql": "^16.6.0",
+    "https-browserify": "^1.0.0",
+    "i18next": "^22.0.5",
+    "millify": "^5.0.1",
+    "moment": "^2.29.4",
+    "os-browserify": "^0.3.0",
+    "react": "^18.2.0",
+    "react-app-rewired": "^2.2.1",
+    "react-datepicker": "^4.8.0",
+    "react-dom": "^18.2.0",
+    "react-hook-form": "^7.39.5",
+    "react-html-parser": "^2.0.2",
+    "react-i18next": "^12.0.0",
+    "react-router": "^6.4.3",
+    "react-router-dom": "^6.4.3",
+    "react-scripts": "^5.0.1",
+    "sass": "^1.56.1",
+    "stream-browserify": "^3.0.0",
+    "stream-http": "^3.2.0",
+    "styled-components": "^5.3.6",
+    "ts-loader": "^9.4.1",
+    "url": "^0.11.0",
+    "util": "^0.12.5",
+    "web-vitals": "^2.1.4",
+    "web3modal": "^1.9.10"
+  },
+  "scripts": {
+    "start": "react-app-rewired start",
+    "build": "react-app-rewired build",
+    "test": "react-app-rewired test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "typescript": "^4.8.4"
+  }
+}

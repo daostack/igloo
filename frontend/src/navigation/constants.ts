@@ -1,5 +1,5 @@
-
 export enum Routes {
+  test = "/test",
   admin = "/admin",
   createHat = "/admin/create-hat",
   mintHat = "/admin/mint-hat",
@@ -13,5 +13,5 @@ export enum Routes {
   createProposal = "spaces/:spaceId/create-proposal",
   discourse = "/discourse",
   discoursePost = "/discourse/:topicId",
-  createTopic = "/discourse/create-topic"
+  createTopic = "/discourse/create-topic",
 }

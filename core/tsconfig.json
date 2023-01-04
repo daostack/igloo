@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "lib": ["DOM", "DOM.Iterable", "ESNext", "ES2017"],
+    "sourceMap": true,
+    "jsx": "react-jsx",
+    "composite": true,
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "incremental": true,
+    // "inlineSources": true,
+    "allowJs": false,
+    "declarationMap": true,
+    "declaration": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": false,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "outDir": "dist",
+    "declarationDir": "dist/types",
+    "types": ["node", "jest"]
+  },
+  "include": ["src", "test", "tsconfig.test.js"],
+  "exclude": ["**/node_modules", "node_modules"]
+}

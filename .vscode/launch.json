@@ -1,0 +1,38 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "backend",
+      "type": "node",
+      "request": "launch",
+      "skipFiles": ["<node_internals>/**"],
+      "cwd": "${workspaceFolder}/backend",
+      "runtimeExecutable": "${workspaceFolder}/backend/node_modules/.bin/ts-node",
+      "args": ["src/server.ts"],
+      "outputCapture": "std",
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "backend-test",
+      "type": "node",
+      "request": "launch",
+      "skipFiles": ["<node_internals>/**"],
+      "cwd": "${workspaceFolder}/backend",
+      "env": {
+        "POSTGRES_URL": "postgresql://postgres:postgres@localhost:5442/igloo-test?schema=public"
+      },
+      "runtimeExecutable": "${workspaceFolder}/backend/node_modules/.bin/jest",
+      "args": ["test/main.test.ts"],
+      "outputCapture": "std",
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "test core",
+      "type": "node",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/core/test",
+      "args": ["test.js"],
+      "outputCapture": "std"
+    }
+  ]
+}
