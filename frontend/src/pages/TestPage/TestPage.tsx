@@ -1,9 +1,11 @@
 import "./index.scss";
-import { stepsMap } from "@igloo/steps";
+import { stepsMap } from "@igloo/core";
 import { useState } from "react";
+import React from "react";
 
 export default function TestPage() {
-  const selectedStep = useState<string>();
+  const [selectedStepId, setSelectedStepId] =  useState<string>('DISCOURSE');
+  const step = stepsMap.get(selectedStepId);
 
   return (
     <div className="error-page">
@@ -12,6 +14,9 @@ export default function TestPage() {
           return <option key={id}>{id}</option>;
         })}
       </select>
+      {step && step.component ? React.createElement(step.component, {
+          params: { discussionId: "20", duration: 10, createDate: 10 },
+        }): <>not found</>}
     </div>
   );
 }
