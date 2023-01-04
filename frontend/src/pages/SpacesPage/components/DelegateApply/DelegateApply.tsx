@@ -1,4 +1,5 @@
 
+import { shortenIfAddress, useEthers } from "@usedapp/core";
 import { isAddress } from "ethers/lib/utils";
 import { t } from "i18next";
 import { useCallback } from "react";
@@ -7,6 +8,7 @@ import { DelegateApplyPayload } from "../../../../interfaces/igloo";
 import "./index.scss";
 
 export default function DelegateApply() {
+  const { account } = useEthers();
   const { register, handleSubmit, formState: { errors, isValid } } = useForm<DelegateApplyPayload>({ mode: "onBlur" });
 
   const apply: SubmitHandler<DelegateApplyPayload> = useCallback(async data => {
@@ -15,7 +17,7 @@ export default function DelegateApply() {
 
   return (
     <div className="delegate-apply">
-
+      <b>{shortenIfAddress(account)}</b>
       <form onSubmit={handleSubmit(apply)} className="delegate-apply__form">
         <input {...register("mainnetAddress", { required: true, validate: isAddress })} placeholder="Etherum Mainnet Address" />
         {errors.mainnetAddress && <span>{t("Shared.enter-valid-address")}</span>}
@@ -28,7 +30,7 @@ export default function DelegateApply() {
         <input {...register("twitter")} placeholder="Twitter handle (optional)" />
         <input {...register("link")} placeholder="Any relevant links/Websites (optional)" />
         <input {...register("video")} placeholder="Introduction video link (optional)" />
-        
+
         <input disabled={!isValid} type="submit" value="Submit" />
       </form>
     </div>

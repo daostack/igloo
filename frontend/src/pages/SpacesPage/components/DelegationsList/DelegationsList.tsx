@@ -1,3 +1,4 @@
+import { useEthers } from "@usedapp/core";
 import { t } from "i18next";
 import Modal from "../../../../components/Modal/Modal";
 import useModal from "../../../../hooks/useModal";
@@ -18,12 +19,13 @@ const MOCK_DELEGATIONS: Delegation[] = [
 ]
 
 export default function DelegationsList() {
+  const { account } = useEthers();
   const { isShowing, toggle } = useModal();
 
   return (
     <div className="delegations-list">
       <div className="delegations-list__top">
-        <button onClick={toggle}>{t("DelegationsList.apply")}</button>
+        <button disabled={!account} onClick={toggle}>{t("DelegationsList.apply")}</button>
       </div>
       {MOCK_DELEGATIONS.map((delegation, index) => <DelegationElement key={index} delegation={delegation} />)}
       {isShowing && (

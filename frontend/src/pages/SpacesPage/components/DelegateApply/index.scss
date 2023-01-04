@@ -1,7 +1,8 @@
 @import "../../../../styles/global.scss";
 
 .delegate-apply {
-
+  display: flex;
+  flex-direction: column;
   &__form {
     @include form;
   }
