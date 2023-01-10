@@ -14,6 +14,7 @@ export default function NavLinks() {
       <NavLink to="/">Igloo</NavLink>
       <NavLink to={Routes.spaces}>Spaces</NavLink>
       <NavLink to={Routes.discourse}>Discourse</NavLink>
+      <NavLink to={Routes.coreTest}>Core Test</NavLink>
       {isTopHat && <NavLink to={Routes.admin}>Admin</NavLink>}
     </div>
   )
