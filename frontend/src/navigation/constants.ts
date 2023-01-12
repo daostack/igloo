@@ -1,5 +1,4 @@
 export enum Routes {
-  test = "/test",
   admin = "/admin",
   createHat = "/admin/create-hat",
   mintHat = "/admin/mint-hat",
@@ -14,4 +13,5 @@ export enum Routes {
   discourse = "/discourse",
   discoursePost = "/discourse/:topicId",
   createTopic = "/discourse/create-topic",
+  coreTest = "/core-test"
 }

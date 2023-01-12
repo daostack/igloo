@@ -15,7 +15,7 @@ import Role from "../pages/SpacesPage/components/Role/Role";
 import RolesList from "../pages/SpacesPage/components/RolesList/RolesList";
 import Space from "../pages/SpacesPage/components/Space/Space";
 import SpacesPage from "../pages/SpacesPage/SpacesPage";
-import TestPage from "../pages/TestPage/TestPage";
+import CoreTest from "../pages/CoreTest/CoreTest";
 import { Routes } from "./constants";
 
 export const router = createBrowserRouter([
@@ -25,8 +25,8 @@ export const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       {
-        path: Routes.test,
-        element: <TestPage />,
+        path: Routes.coreTest,
+        element: <CoreTest />,
       },
       {
         path: Routes.admin,
