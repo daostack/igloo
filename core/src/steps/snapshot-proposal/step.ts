@@ -3,6 +3,7 @@ import { IWorld, ProgressInfo, Step, TransitionFunc } from "../../types";
 import { StepComponent } from "./component";
 
 export interface Params {
+  spaceId: string;
   proposalId: string;
   start: number;
 }
